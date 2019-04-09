@@ -1,0 +1,51 @@
+# Build settings
+permalink: /blog/:year/:title/
+markdown: kramdown
+highlighter: pygments
+plugins: [jekyll-paginate-v2]
+
+pagination:
+  enabled: true
+  per_page: 3
+  permalink: "/page/:num/"
+
+comments: true
+
+source: source
+destination: _site
+sass:
+  sass_dir: _sass
+  style: compressed # expanded
+
+# SEO settings
+title: Tom Begley
+description: "Homepage of Tom Begley"
+keywords: "tcbegley, data science, python, dash"
+url: http://tcbegley.com
+baseurl: ""
+
+repo: http://github.com/tcbegley/
+
+# Author settings
+author:
+  name: Tom Begley
+  job: Data Scientist
+  thumb: /images/tom.png
+  email: tomcbegley@gmail.com
+  url: https://tcbegley.com
+  github: https://github.com/tcbegley
+  twitter: https://twitter.com/tcbegley
+  linkedin: https://linkedin.com/in/tcbegley
+
+# navbar pages
+navbar:
+  - slug: about
+    title: About
+  - slug: code
+    title: Code
+  - slug: maths
+    title: Maths
+  - slug: blog
+    title: Blog
+
+exclude: ["config.rb", "src", "Gemfile", "Gemfile.lock", "package.json","README.md", "Rakefile"]

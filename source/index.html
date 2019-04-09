@@ -1,0 +1,16 @@
+---
+layout: default
+---
+
+<section class="hero">
+  <div class="hero-inner">
+    <div class="container">
+      <img src="{{ site.author.thumb | prepend: site.baseurl }}" alt="author thumb" class="dot">
+      <h3>Hello. I'm <strong itemprop="name">{{ site.author.name }}</strong>. I'm a {{ site.author.job }} at <a href="https://faculty.ai">Faculty</a>.</h3>
+      <h4 style="font-weight:300;">This is my website. You'll find some information about me, my work, and my side projects. I'm interested in many things including, but not limited to Bayesian inference, machine learning, building dashboards, and Python.</h4>
+      <a href="{{ '/about' | prepend: site.baseurl }}" class="button button-ghost" title="about">about</a>
+      <a href="{{ '/code' | prepend: site.baseurl }}" class="button button-ghost" title="code">code</a>
+      {% include social.html %}
+    </div>
+  </div>
+</section>
