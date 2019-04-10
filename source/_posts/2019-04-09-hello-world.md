@@ -8,4 +8,4 @@ comments: false
 category: welcome
 ---
 
-This is really just a placeholder post. I fully intend to add content to this blog. Let's see how that pans out.
+This is really just a placeholder post. I fully intend to add content to this blog. Let's see how that pans out... Watch this space!
