@@ -6,8 +6,10 @@ require "jekyll"
 require "bourbon"
 
 # Change your GitHub reponame
-GITHUB_REPONAME = "tcbegley/tcbegley.github.io"
-GITHUB_REPO_BRANCH = "master"
+GITHUB_SOURCE = "tcbegley/tcbegley.com"
+
+GITHUB_DEPLOY = "tcbegley/tcbegley.github.io"
+GITHUB_DEPLOY_BRANCH = "master"
 
 SOURCE = "source/"
 DEST = "_site"
@@ -22,29 +24,30 @@ CONFIG = {
 task default: %w[publish]
 
 desc "Generate blog files"
-task :generate do
-  Jekyll::Site.new(Jekyll.configuration({
-    "source"      => "source/",
-    "destination" => "_site",
-    "config"      => "_config.yml"
-  })).process
+task :generate, [:root_dir] do |t, args|
+  args.with_defaults(:root_dir => ".")
+  build_src(args.root_dir)
 end
 
 desc "Generate and publish blog to gh-pages"
-task :publish => [:generate] do
-  Dir.mktmpdir do |tmp|
+task :publish do
+  Dir.mktmpdir do |tmp_source|
     pwd = Dir.pwd
+    system "git clone git@github.com:#{GITHUB_SOURCE}.git #{tmp_source}"
+    build_src(tmp_source)
 
-    system "git clone git@github.com:#{GITHUB_REPONAME}.git #{tmp}"
-    cp_r "_site/.", tmp
+    Dir.mktmpdir do |tmp_deploy|
+      system "git clone git@github.com:#{GITHUB_DEPLOY}.git #{tmp_deploy}"
+      cp_r "#{tmp_source}/_site/.", tmp_deploy
 
-    Dir.chdir tmp
-    system "git add ."
-    message = "Site updated at #{Time.now.utc}"
-    system "git commit -am #{message.inspect}"
-    system "git push origin #{GITHUB_REPO_BRANCH}"
+      Dir.chdir tmp_deploy
+      system "git add ."
+      message = "Site updated at #{Time.now.utc}"
+      system "git commit -am #{message.inspect}"
+      system "git push origin #{GITHUB_DEPLOY_BRANCH}"
 
-    Dir.chdir pwd
+      Dir.chdir pwd
+    end
   end
 end
 
@@ -148,4 +151,12 @@ def strtag(str_tags)
   end
 
   return tags
+end
+
+def build_src(root_dir)
+  Jekyll::Site.new(Jekyll.configuration({
+    "source"      => "#{root_dir}/source/",
+    "destination" => "#{root_dir}/_site",
+    "config"      => "#{root_dir}/_config.yml"
+  })).process
 end
