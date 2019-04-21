@@ -17,8 +17,11 @@ sass:
   sass_dir: _sass
   style: compressed # expanded
 
+favicon: /images/favicon.png
+
 # SEO settings
 title: Tom Begley
+title_prefix: "Tom Begley - "
 description: "Homepage of Tom Begley"
 keywords: "tcbegley, data science, python, dash"
 url: http://tcbegley.com
