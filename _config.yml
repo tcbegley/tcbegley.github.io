@@ -45,6 +45,8 @@ navbar:
     title: Code
   - slug: maths
     title: Maths
+  - slug: photos
+    title: Photos
   - slug: blog
     title: Blog
 
