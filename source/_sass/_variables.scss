@@ -1,0 +1,240 @@
+// Typography
+$base-font-family: "Montserrat", $helvetica;
+$heading-font-family: $base-font-family;
+
+// Font Sizes
+$unit-font-size: 16px;
+$base-font-size: 1em;
+
+// Line height
+$base-line-height: 1.5;
+$heading-line-height: 1.3;
+
+// font weight
+$font-weight-light: 300;
+$font-weight-normal: 400;
+$font-weight-bold: 700;
+
+// Other Sizes
+$base-spacing: $base-line-height * 1em;
+$small-spacing: $base-spacing / 2;
+$xsmall-spacing: $base-spacing / 3;
+$big-spacing: $base-spacing * 2.5;
+$base-z-index: 0;
+
+// Colors
+$primary-color: #59b24d;
+$white-color: #fff;
+$black-color: #000;
+$blue-color: #59b24d;
+$dark-gray-color: #232323;
+$medium-gray-color: #9a9a9a;
+$light-gray-color: #dedede;
+
+// Font Colors
+$base-font-color: lighten($dark-gray-color, 25%);
+$action-color: $primary-color;
+
+// Border
+$base-border-color: $light-gray-color;
+$base-border: 1px solid $base-border-color;
+
+// Background Colors
+$base-background-color: $white-color;
+$secondary-background-color: tint($base-border-color, 75%);
+
+// Forms
+$form-box-shadow: inset 0 1px 3px rgba(#000, 0.06);
+$form-box-shadow-focus: $form-box-shadow, 0 0 5px adjust-color($action-color, $lightness: -5%, $alpha: -0.3);
+
+// Animations
+$base-duration: 0.3s;
+$base-timing: ease-in-out;
+
+$default-feature: min-width;
+$phone-small: 320px;
+$phone: 360px;
+$phone-large: 420px;
+$tablet-small: 768px;
+$tablet: 1024px;
+$desktop: 1240px;
+
+// Radius
+$small-border-radius: 0px;
+$base-border-radius: 0px;
+$big-border-radius: 0px;
+
+// Custom icons
+//
+$icon-font-path: "../fonts";
+
+$icon-home: "";
+$icon-pencil: "";
+$icon-image: "";
+$icon-images: "";
+$icon-camera: "";
+$icon-headphones: "";
+$icon-music: "";
+$icon-play: "";
+$icon-price-tag: "";
+$icon-price-tags: "";
+$icon-barcode: "";
+$icon-qrcode: "";
+$icon-cart: "";
+$icon-phone: "";
+$icon-phone-hang-up: "";
+$icon-address-book: "";
+$icon-envelop: "";
+$icon-location: "";
+$icon-location2: "";
+$icon-calendar: "";
+$icon-keyboard: "";
+$icon-display: "";
+$icon-laptop: "";
+$icon-mobile: "";
+$icon-mobile2: "";
+$icon-drawer: "";
+$icon-drawer2: "";
+$icon-floppy-disk: "";
+$icon-undo: "";
+$icon-redo: "";
+$icon-undo2: "";
+$icon-redo2: "";
+$icon-bubble: "";
+$icon-bubbles2: "";
+$icon-bubble2: "";
+$icon-bubbles4: "";
+$icon-user: "";
+$icon-users: "";
+$icon-user-tie: "";
+$icon-quotes-left: "";
+$icon-quotes-right: "";
+$icon-spinner2: "";
+$icon-spinner5: "";
+$icon-spinner8: "";
+$icon-spinner11: "";
+$icon-search: "";
+$icon-zoom-in: "";
+$icon-zoom-out: "";
+$icon-enlarge: "";
+$icon-shrink: "";
+$icon-enlarge2: "";
+$icon-shrink2: "";
+$icon-lock: "";
+$icon-unlocked: "";
+$icon-wrench: "";
+$icon-equalizer2: "";
+$icon-cog: "";
+$icon-cogs: "";
+$icon-bug: "";
+$icon-pie-chart: "";
+$icon-stats-dots: "";
+$icon-stats-bars: "";
+$icon-mug: "";
+$icon-bin: "";
+$icon-briefcase: "";
+$icon-airplane: "";
+$icon-truck: "";
+$icon-switch: "";
+$icon-power-cord: "";
+$icon-clipboard: "";
+$icon-menu: "";
+$icon-menu2: "";
+$icon-menu3: "";
+$icon-menu4: "";
+$icon-cloud: "";
+$icon-cloud-download: "";
+$icon-cloud-upload: "";
+$icon-cloud-check: "";
+$icon-earth: "";
+$icon-link: "";
+$icon-attachment: "";
+$icon-eye: "";
+$icon-eye-blocked: "";
+$icon-star-empty: "";
+$icon-star-half: "";
+$icon-star-full: "";
+$icon-heart: "";
+$icon-man: "";
+$icon-woman: "";
+$icon-man-woman: "";
+$icon-warning: "";
+$icon-notification: "";
+$icon-question: "";
+$icon-plus: "";
+$icon-minus: "";
+$icon-info: "";
+$icon-cancel-circle: "";
+$icon-blocked: "";
+$icon-cross: "";
+$icon-checkmark: "";
+$icon-checkmark2: "";
+$icon-loop2: "";
+$icon-infinite: "";
+$icon-shuffle: "";
+$icon-arrow-right2: "";
+$icon-arrow-left2: "";
+$icon-circle-up: "";
+$icon-circle-right: "";
+$icon-circle-down: "";
+$icon-circle-left: "";
+$icon-shift: "";
+$icon-ctrl: "";
+$icon-checkbox-checked: "";
+$icon-checkbox-unchecked: "";
+$icon-radio-checked: "";
+$icon-radio-unchecked: "";
+$icon-filter: "";
+$icon-share: "";
+$icon-new-tab: "";
+$icon-embed: "";
+$icon-embed2: "";
+$icon-terminal: "";
+$icon-share2: "";
+$icon-mail: "";
+$icon-mail2: "";
+$icon-mail3: "";
+$icon-mail4: "";
+$icon-google3: "";
+$icon-google-plus: "";
+$icon-google-plus2: "";
+$icon-google-plus3: "";
+$icon-hangouts: "";
+$icon-google-drive: "";
+$icon-facebook: "";
+$icon-facebook2: "";
+$icon-instagram: "";
+$icon-whatsapp: "";
+$icon-spotify: "";
+$icon-telegram: "";
+$icon-twitter: "";
+$icon-rss: "";
+$icon-rss2: "";
+$icon-youtube: "";
+$icon-vimeo: "";
+$icon-flickr2: "";
+$icon-dribbble: "";
+$icon-behance: "";
+$icon-behance2: "";
+$icon-dropbox: "";
+$icon-github: "";
+$icon-trello: "";
+$icon-wordpress: "";
+$icon-joomla: "";
+$icon-tux: "";
+$icon-appleinc: "";
+$icon-finder: "";
+$icon-android: "";
+$icon-skype: "";
+$icon-linkedin: "";
+$icon-linkedin2: "";
+$icon-chrome: "";
+$icon-firefox: "";
+$icon-IE: "";
+$icon-edge: "";
+$icon-safari: "";
+$icon-opera: "";
+$icon-html-five: "";
+$icon-html-five2: "";
+$icon-css3: "";
+$icon-git: "";
