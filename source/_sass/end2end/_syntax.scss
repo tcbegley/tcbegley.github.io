@@ -1,181 +1,96 @@
-.highlight {
-  @extend %clearfix;
+/* Ocean Dark Theme */
+/* https://github.com/gavsiu */
+/* Original theme - https://github.com/chriskempson/base16 */
 
-  font-size: 1.2rem;
-
-  padding: 0;
+pre.highlight {
   margin: {
     top: $base-spacing;
     bottom: $base-spacing;
-  };
-
-  &, .hll, pre, code {
-    background: #282c34;
-    border-radius: 5px;
-    border: none;
   }
+  font-size: 1.2rem;
+  border-radius: 5px;
+  background: #2b303b;
+  border-radius: 5px;
+  border: none;
+  padding: $small-spacing $base-spacing;
+  white-space: pre;
+  line-height: 23px;
+  overflow-x: auto;
+  word-break: inherit;
+  word-wrap: inherit;
 
-  pre {
-    margin: 0;
-    padding: $small-spacing $base-spacing;
-    white-space: pre;
-    line-height: 23px;
-    overflow-x: auto;
-    margin-bottom: 0;
-    word-break: inherit;
-    word-wrap: inherit;
-
-    &, code {
-      color: #eeffdd;
-    }
-
-    code {
-      white-space: pre;
-      padding: 0 !important;
-
-      * {
-        white-space: nowrap;
-
-        // this sets all children inside to nowrap
-
-      }
-    }
+  & > code {
+    padding: 0;
   }
+}
 
-  .c {
-    color: #5c6370;
-    font-style: italic;
-  }
+/* Ocean Comment */
+.hljs-comment,
+.hljs-quote {
+  color: #65737e;
+}
 
-  .err {
-    color: #960050;
-    background-color: #1e0010;
-  }
+/* Ocean Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+  color: #bf616a;
+}
 
-  .k {
-    color: #c678dd;
-  }
+/* Ocean Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+  color: #d08770;
+}
 
-  .l {
-    color: #98c379;
-  }
+/* Ocean Yellow */
+.hljs-attribute {
+  color: #ebcb8b;
+}
 
-  .n, .o, .p {
-    color: #edf0f5;
-  }
+/* Ocean Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+  color: #a3be8c;
+}
 
-  .cm, .cp, .c1, .cs {
-    color: #5c6370;
-    font-style: italic;
-  }
+/* Ocean Blue */
+.hljs-title,
+.hljs-section {
+  color: #8fa1b3;
+}
 
-  .ge {
-    font-style: italic;
-  }
+/* Ocean Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+  color: #b48ead;
+}
 
-  .gs {
-    font-weight: 700;
-  }
+.hljs {
+  display: block;
+  overflow-x: auto;
+  background: #2b303b;
+  color: #c0c5ce;
+  padding: 0.5em;
+}
 
-  .kc, .kd, .kn, .kp, .kr, .kt {
-    color: #c678dd;
-  }
+.hljs-emphasis {
+  font-style: italic;
+}
 
-  .ld {
-    color: #98c379;
-  }
-
-  .m {
-    color: #d19a66;
-  }
-
-  .s {
-    color: #98c379;
-  }
-
-  .na {
-    color: #d19a66;
-  }
-
-  .nb, .nc, .no, .nd, .ni, .ne {
-    color: #e5c07b;
-  }
-
-  .nf {
-    color: #edf0f5;
-  }
-
-  .nl {
-    color: #e5c07b;
-  }
-
-  .nn, .nx {
-    color: #edf0f5;
-  }
-
-  .py {
-    color: #e5c07b;
-  }
-
-  .nt {
-    color: #e06c75;
-  }
-
-  .nv {
-    color: #e5c07b;
-  }
-
-  .ow {
-    font-weight: 700;
-  }
-
-  .w {
-    color: #f8f8f2;
-  }
-
-  .mf, .mh, .mi, .mo {
-    color: #d19a66;
-  }
-
-  .sb, .sc, .sd, .s2, .se, .sh, .si, .sx {
-    color: #98c379;
-  }
-
-  .sr {
-    color: #56b6c2;
-  }
-
-  .s1 {
-    color: #98c379;
-  }
-
-  .ss {
-    color: #56b6c2;
-  }
-
-  .bp, .vc, .vg {
-    color: #e5c07b;
-  }
-
-  .vi {
-    color: #e06c75;
-  }
-
-  .il {
-    color: #d19a66;
-  }
-
-  .gu {
-    color: #75715e;
-  }
-
-  .gd {
-    color: #f92672;
-  }
-
-  .gi {
-    color: #a6e22e;
-  }
-
-  // Generic.Inserted & Diff Inserted
+.hljs-strong {
+  font-weight: bold;
 }
