@@ -254,7 +254,7 @@ For each parameter in our model, in this case `theta`, we get an estimate of the
 
 The final two columns `n_eff` and `Rhat` help us understand how correlated the samples are, and how well the sampler converged. `n_eff` counts the "effective" number of samples, roughly speaking we can expect the correlated samples drawn by Stan to have the utility of this number of independent samples. `Rhat` measures how well the chains have converged and whether they have converged to the same thing. An `Rhat` value of $$1.0$$ is necessary but not sufficient for convergence, i.e. if the chains have converged then `Rhat` will be $$1.0$$, though if `Rhat` is $$1.0$$ convergence isn't guaranteed. In our case we have a large number of effective samples and an `Rhat` of $$1.0$$, so sampling appears to have been successful.
 
-We can get the sampled values of `theta` and do computations with them manually, for example, let's calculate the probability that `theta` is greater than `0.5` and compare to our earlier answers
+We can get the sampled values of `theta` and do computations with them manually, for example, let's calculate the probability that `theta` is greater than $$0.5$$ and compare to our earlier answers
 
 <pre class="highlight"><code class="python">>>> samples = fit.extract()["theta"]
 >>> (samples > 0.5).mean()
