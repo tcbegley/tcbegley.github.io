@@ -1,8 +1,8 @@
 ---
 layout: post
 title: "Election Modelling - Part 2"
-permalink: election-modelling---part-2
-date: 2019-11-04 08:00:00
+permalink: election-modelling-part-2
+date: 2019-11-11 08:00:00
 comments: false
 description: "Election Modelling - Part 2"
 keywords: ""

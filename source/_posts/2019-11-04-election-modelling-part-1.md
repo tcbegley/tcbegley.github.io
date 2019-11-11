@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Election Modelling - Part 1"
-permalink: election-modelling---part-1
+permalink: election-modelling-part-1
 date: 2019-11-04 08:00:00
 comments: false
 description: "Understanding YouGov's 2017 election model: background"
