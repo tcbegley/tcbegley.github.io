@@ -1,23 +1,15 @@
 ---
 title: "About"
-date: "2018-07-19"
-author: "Radek"
+date: "2020-01-03"
+author: "Tom"
 path: "/about"
 ---
 
-## Hi there
+I am currently R&D lead at [Faculty](https://faculty.ai). At the moment our R&D team is particularly interested in AI safety. I originally joined Faculty as a data scientist. We work with a number of clients across many different industries on machine learning and data science problems. A couple of projects I've worked on include:
 
-My name is Radek and I'm the author of this starter. I made it to help you present your ideas easier.
+* A tool for detecting terrorist propaganda online using machine learning algorithms, built for the UK Home Office. Read about it [here](https://www.bbc.co.uk/news/technology-43037899).
+* A media monitoring application for Amnesty International. Read about it [here](https://www.cio.co.uk/it-strategy/amnesty-international-cio-adopts-data-science-track-press-data-3671814/) or [watch me talk about it](https://www.youtube.com/watch?v=8aZdJwY79OE).
 
-We all know how hard is to start something on the web, especially these days. You need to prepare a bunch of stuff, configure them and when that’s done — create the content.
+Previously I studied for a PhD in mathematics at the University of Cambridge under the joint supervision of [Prof. Neshan Wickramasekera](https://www.dpmms.cam.ac.uk/people/ngw24/) and [Dr. Felix Schulze](https://felixschulze.eu/). You can read more about what I worked on on my [maths page](/maths).
 
-This starter is pretty basic and covers all of the essentials. All you have to do is start typing!
-
-The starter includes:
-
-- **light/dark mode**, depending on your preferences
-- great reading experience thanks to [**Inter UI font**](https://rsms.me/inter/), made by [Rasmus Andersson](https://rsms.me/about/)
-- nice code highlighting thanks to [**PrismJS**](https://prismjs.com)
-- responsive youtube/vimeo etc. videos thanks to [**gatsby-remark-embed-video**](https://github.com/borgfriend/gatsby-remark-embed-video)
-
-So, there you have it... enjoy!
+I like coding in my spare time and contributing to open source projects. You can see some of the things I work on on my [code page](/code).
