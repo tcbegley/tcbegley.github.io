@@ -1,37 +1,45 @@
-const postCssPresetEnv = require(`postcss-preset-env`)
-const postCSSNested = require('postcss-nested')
-const postCSSUrl = require('postcss-url')
-const postCSSImports = require('postcss-import')
-const cssnano = require('cssnano')
-const postCSSMixins = require('postcss-mixins')
+const postCssPresetEnv = require(`postcss-preset-env`);
+const postCSSNested = require("postcss-nested");
+const postCSSUrl = require("postcss-url");
+const postCSSImports = require("postcss-import");
+const cssnano = require("cssnano");
+const postCSSMixins = require("postcss-mixins");
 
 module.exports = {
   siteMetadata: {
-    title: `Hello Friend`,
-    description: `A simple starter for Gatsby. That's it.`,
-    copyrights: '',
-    author: `@panr`,
+    title: `Tom Begley`,
+    description: `Personal website of Tom Begley`,
+    copyrights: "",
+    author: `@tcbegley`,
     logo: {
-      src: '',
-      alt: '',
+      src: "",
+      alt: "",
     },
-    logoText: 'hello friend',
-    defaultTheme: 'dark',
+    logoText: "tcbegley",
+    defaultTheme: "dark",
     postsPerPage: 5,
     showMenuItems: 2,
-    menuMoreText: 'Show more',
+    menuMoreText: "Show more",
     mainMenu: [
       {
-        title: 'About',
-        path: '/about',
+        title: "About",
+        path: "/about",
       },
       {
-        title: 'Showcase',
-        path: '/showcase',
+        title: "Blog",
+        path: "/blog",
       },
       {
-        title: 'Example',
-        path: '/example',
+        title: "Code",
+        path: "/code",
+      },
+      {
+        title: "Photos",
+        path: "/photos",
+      },
+      {
+        title: "Maths",
+        path: "/maths",
       },
     ],
   },
@@ -68,12 +76,12 @@ module.exports = {
           postCSSMixins(),
           postCSSNested(),
           postCssPresetEnv({
-            importFrom: 'src/styles/variables.css',
+            importFrom: "src/styles/variables.css",
             stage: 1,
             preserve: false,
           }),
           cssnano({
-            preset: 'default',
+            preset: "default",
           }),
         ],
       },
@@ -85,7 +93,7 @@ module.exports = {
       options: {
         plugins: [
           {
-            resolve: 'gatsby-remark-embed-video',
+            resolve: "gatsby-remark-embed-video",
             options: {
               related: false,
               noIframeBorder: true,
@@ -101,7 +109,7 @@ module.exports = {
           {
             resolve: `gatsby-remark-prismjs`,
             options: {
-              classPrefix: 'language-',
+              classPrefix: "language-",
               inlineCodeMarker: null,
               aliases: {},
               showLineNumbers: false,
@@ -114,8 +122,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `gatsby-starter-hello-friend`,
-        short_name: `hello-friend`,
+        name: `tcbegley.com`,
+        short_name: `tcbegley.com`,
         start_url: `/`,
         background_color: `#292a2d`,
         theme_color: `#292a2d`,
@@ -124,4 +132,4 @@ module.exports = {
       },
     },
   ],
-}
+};
