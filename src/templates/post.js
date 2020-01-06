@@ -6,13 +6,14 @@ import SEO from '../components/seo'
 import Layout from '../components/layout'
 import Post from '../components/post'
 
-const BlogPostTemplate = ({ data }) => {
+const BlogPostTemplate = ({ data, pageContext }) => {
   const {
-    frontmatter: { title, path, coverImage, excerpt, tags },
+    frontmatter: { title, date, path, author, coverImage, excerpt, tags },
     excerpt: autoExcerpt,
     id,
     html,
   } = data.markdownRemark
+  const { next, previous } = pageContext
 
   return (
     <Layout>
@@ -20,10 +21,14 @@ const BlogPostTemplate = ({ data }) => {
       <Post
         key={id}
         title={title}
+        date={date}
         path={path}
+        author={author}
         coverImage={coverImage}
         html={html}
         tags={tags}
+        previousPost={previous}
+        nextPost={next}
       />
     </Layout>
   )

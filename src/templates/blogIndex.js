@@ -1,29 +1,20 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { graphql } from "gatsby";
-import SEO from "../components/seo";
-import Layout from "../components/layout";
-import Post from "../components/post";
-import Navigation from "../components/navigation";
+import React from 'react'
+import PropTypes from 'prop-types'
+import { graphql } from 'gatsby'
+import SEO from '../components/seo'
+import Layout from '../components/layout'
+import Post from '../components/post'
+import Navigation from '../components/navigation'
 
-import "../styles/layout.css";
-
-const Tags = ({
-  data,
-  pageContext: { nextPagePath, previousPagePath, tag },
-}) => {
+const Index = ({ data, pageContext: { nextPagePath, previousPagePath } }) => {
   const {
     allMarkdownRemark: { edges: posts },
-  } = data;
+  } = data
 
   return (
     <>
       <SEO />
       <Layout>
-        <div className="infoBanner">
-          Posts with tag: <span>#{tag}</span>
-        </div>
-
         {posts.map(({ node }) => {
           const {
             id,
@@ -37,7 +28,7 @@ const Tags = ({
               excerpt,
               tags,
             },
-          } = node;
+          } = node
 
           return (
             <Post
@@ -46,11 +37,11 @@ const Tags = ({
               date={date}
               path={path}
               author={author}
-              tags={tags}
               coverImage={coverImage}
+              tags={tags}
               excerpt={excerpt || autoExcerpt}
             />
-          );
+          )
         })}
 
         <Navigation
@@ -61,21 +52,21 @@ const Tags = ({
         />
       </Layout>
     </>
-  );
-};
+  )
+}
 
-Tags.propTypes = {
+Index.propTypes = {
   data: PropTypes.object.isRequired,
   pageContext: PropTypes.shape({
     nextPagePath: PropTypes.string,
     previousPagePath: PropTypes.string,
   }),
-};
+}
 
 export const postsQuery = graphql`
-  query($limit: Int!, $skip: Int!, $tag: String!) {
+  query($limit: Int!, $skip: Int!) {
     allMarkdownRemark(
-      filter: { frontmatter: { tags: { in: [$tag] } } }
+      filter: { fileAbsolutePath: { regex: "//posts//" } }
       sort: { fields: [frontmatter___date], order: DESC }
       limit: $limit
       skip: $skip
@@ -103,6 +94,6 @@ export const postsQuery = graphql`
       }
     }
   }
-`;
+`
 
-export default Tags;
+export default Index
