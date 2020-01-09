@@ -30,6 +30,11 @@ const SEO = ({ description, lang, meta, keywords, title }) => {
       }}
       title={metaTitle}
       titleTemplate={title ? `${title} :: ${siteTitle}` : siteTitle}
+      link={[{
+        rel: "stylesheet",
+        href:
+          "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap-grid.min.css",
+      }]}
       meta={[
         {
           name: `description`,
@@ -74,7 +79,7 @@ const SEO = ({ description, lang, meta, keywords, title }) => {
         )
         .concat(meta)}
     />
-  )
+  );
 }
 
 SEO.defaultProps = {

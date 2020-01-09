@@ -1,8 +1,30 @@
+@import "./variables.css";
+
 .heading {
   font-weight: 300;
   font-size: 40pt;
+  margin-top: 0;
+  display: block;
 }
 
 .summary {
   font-size: 16pt;
+}
+
+.textCenter {
+  text-align: center !important;
+}
+
+@media (min-width: 768px) {
+  .textMdLeft {
+    text-align: left !important;
+  }
+
+  .flexMdNowrap {
+    flex-wrap: nowrap !important;
+  }
+}
+
+.justifyContentAround {
+  justify-content: space-around !important;
 }

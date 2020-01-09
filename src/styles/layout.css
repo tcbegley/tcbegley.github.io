@@ -245,7 +245,7 @@ textarea {
     "Segoe UI", Helvetica, Arial, sans-serif;
 }
 
-.container {
+.page-container {
   position: relative;
   min-height: 100vh;
   display: flex;
