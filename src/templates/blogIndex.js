@@ -14,7 +14,7 @@ const Index = ({ data, pageContext: { nextPagePath, previousPagePath } }) => {
   return (
     <>
       <SEO />
-      <Layout>
+      <Layout column={true}>
         {posts.map(({ node }) => {
           const {
             id,

@@ -4,7 +4,7 @@ path: "/blog/election-modelling-part-1"
 date: "2019-01-17 08:00:00"
 author: "Tom"
 excerpt: "It's happening! I actually wrote a blog post. But also the UK is having a general election in December..."
-tags: ["rob____ot", "hello friend"]
+tags: ["bayesian statistics", "politics"]
 ---
 
 It's happening! I actually wrote a blog post. But also the UK is having a general election in December, the third in the last five years. Over the next several weeks we can expect an influx of analysis, predictions and statistical models, all trying to make sense of the situation, and figure out who is likely to win. How those models will work, and the types of predictions they make is likely to be very different to what they did just two years ago during the last campaign, all thanks to an extremely successful experiment run by pollster YouGov. This series of blogs is about what they did.
