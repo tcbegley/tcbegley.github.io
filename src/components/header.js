@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import { Helmet } from 'react-helmet'
+import Typist from 'react-typist'
 
 import Menu from './menu'
 
@@ -39,9 +40,9 @@ const Header = props => {
       <Helmet>
         <body
           className={
-            (userTheme || defaultTheme) === 'light'
-              ? 'light-theme'
-              : 'dark-theme'
+            (userTheme || defaultTheme) === "light"
+              ? "light-theme"
+              : "dark-theme"
           }
         />
       </Helmet>
@@ -54,7 +55,9 @@ const Header = props => {
               ) : (
                 <>
                   <span className={style.mark}>></span>
-                  <span className={style.text}>{logoText}</span>
+                  <Typist cursor={{show: false}}>
+                    <span className={style.text}>{logoText}</span>
+                  </Typist>
                   <span className={style.cursor} />
                 </>
               )}
@@ -75,7 +78,7 @@ const Header = props => {
         </div>
       </header>
     </>
-  )
+  );
 }
 
 Header.propTypes = {
