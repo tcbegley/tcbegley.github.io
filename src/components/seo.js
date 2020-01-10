@@ -1,7 +1,7 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Helmet from 'react-helmet'
-import { useStaticQuery, graphql } from 'gatsby'
+import React from "react";
+import PropTypes from "prop-types";
+import Helmet from "react-helmet";
+import { useStaticQuery, graphql } from "gatsby";
 
 const SEO = ({ description, lang, meta, keywords, title }) => {
   const data = useStaticQuery(graphql`
@@ -14,14 +14,14 @@ const SEO = ({ description, lang, meta, keywords, title }) => {
         }
       }
     }
-  `)
+  `);
   const {
     title: siteTitle,
     description: siteDescription,
     author,
-  } = data.site.siteMetadata
-  const metaTitle = title || siteTitle
-  const metaDescription = description || siteDescription
+  } = data.site.siteMetadata;
+  const metaTitle = title || siteTitle;
+  const metaDescription = description || siteDescription;
 
   return (
     <Helmet
@@ -30,11 +30,12 @@ const SEO = ({ description, lang, meta, keywords, title }) => {
       }}
       title={metaTitle}
       titleTemplate={title ? `${title} :: ${siteTitle}` : siteTitle}
-      link={[{
-        rel: "stylesheet",
-        href:
-          "https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap-grid.min.css",
-      }]}
+      script={[
+        {
+          src: "https://kit.fontawesome.com/0c1cb59349.js",
+          crossorigin: "anonymous",
+        },
+      ]}
       meta={[
         {
           name: `description`,
@@ -80,22 +81,22 @@ const SEO = ({ description, lang, meta, keywords, title }) => {
         .concat(meta)}
     />
   );
-}
+};
 
 SEO.defaultProps = {
   lang: `en`,
   meta: [],
   keywords: [
-    'gatsby',
-    'minimal',
-    'starter',
-    'blog',
-    'theme',
-    'dark',
-    'light',
-    'personal site',
+    "gatsby",
+    "minimal",
+    "starter",
+    "blog",
+    "theme",
+    "dark",
+    "light",
+    "personal site",
   ],
-}
+};
 
 SEO.propTypes = {
   description: PropTypes.string,
@@ -103,6 +104,6 @@ SEO.propTypes = {
   meta: PropTypes.array,
   keywords: PropTypes.arrayOf(PropTypes.string),
   title: PropTypes.string,
-}
+};
 
-export default SEO
+export default SEO;
