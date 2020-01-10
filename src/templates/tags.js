@@ -19,7 +19,7 @@ const Tags = ({
   return (
     <>
       <SEO />
-      <Layout>
+      <Layout column={true}>
         <div className="infoBanner">
           Posts with tag: <span>#{tag}</span>
         </div>
