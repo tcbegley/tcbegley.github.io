@@ -26,19 +26,19 @@ To understand MRP and the problems it solves, it's useful to first understand ho
 Basic polling analysis might proceed as follows. We have a population of voters, the electorate, each of whom have their personal preferences for the parties they want to vote for. We can illustrate that as follows, where colour represents political preference.
 
 <p align="center">
-  <img src="../images/blog/em/population.png" width="350"/>
+  <img src="../images/blog/em/population.png" />
 </p>
 
 We select a random sample of the population, and ask them what their voting preference is.
 
 <p align="center">
-  <img src="../images/blog/em/population-sample.png" width="350"/>
+  <img src="../images/blog/em/population-sample.png" />
 </p>
 
 We calculate the proportion of voters in the sample that intend to vote for each party, and use that as our estimate of the proportion of voters in the electorate that will vote for those parties.
 
 <p align="center">
-  <img src="../images/blog/em/sample.png" width="350"/>
+  <img src="../images/blog/em/sample.png" />
 </p>
 
 We know from the [Central Limit Theorem][clt] that the more people you sample, the closer the sample proportion will get to the true proportion. In fact, we can even quantify the effect of increasing the sample size. Specifically the sampling error scales like the inverse square root of the sample size, so to halve sampling error we need to _quadruple_ the sample size. Pollsters typically balance the cost of polling lots of people against the need to reduce sampling error to an amount that doesn't diminish the utility of the polls. It turns out a poll of about 1000 people will give you error bars of about 3% either side of the estimate, which is often a resonable balance of certainty and expense.
@@ -46,19 +46,19 @@ We know from the [Central Limit Theorem][clt] that the more people you sample, t
 All of the above though is predicated on a pretty major assumption, which is that the only source of error in our estimates is sampling error. In practice [there are many other sources of error][polling-error]. One example is so-called "frame error", which is error introduced to the estimates by not having a representative sample. For example, political preference is not evenly distributed across the electorate. Currently in the UK support for parties is strongly correlated with age. Perhaps that looks something like this
 
 <p align="center">
-  <img src="../images/blog/em/population-skew.png" width="350"/>
+  <img src="../images/blog/em/population-skew.png" />
 </p>
 
 If the poll is more likely to reach older people, for example if we do a telephone poll and older people are more likely to have a landline, then our sample could be biased.
 
 <p align="center">
-  <img src="../images/blog/em/population-skew-sample.png" width="350"/>
+  <img src="../images/blog/em/population-skew-sample.png" />
 </p>
 
 Which would lead to biased estimates.
 
 <p align="center">
-  <img src="../images/blog/em/sample-skew.png" width="350"/>
+  <img src="../images/blog/em/sample-skew.png" />
 </p>
 
 ## Errors are not the only problem

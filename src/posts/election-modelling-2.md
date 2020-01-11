@@ -53,25 +53,25 @@ We discard any constants independent of $\theta$ since they would be cancelled i
 We'll look at how to use this distribution to make inferences in the next section, but first let's look at how the posterior changes as we observe coin flips. To begin with, before we observe any data, the posterior is just the prior.
 
 <p align="center">
-  <img src="../images/blog/em2/beta11.png" width="350"/>
+  <img src="../images/blog/em2/beta11.png" />
 </p>
 
 If we observed a tails, the posterior becomes $\mathrm{Beta}(1, 2)$ which looks like this.
 
 <p align="center">
-  <img src="../images/blog/em2/beta12.png" width="350"/>
+  <img src="../images/blog/em2/beta12.png" />
 </p>
 
 We can see the posterior probability density of $\theta = 1$ immediately goes to $0$. This makes sense because we just observed tails, so we can rule out the possibility that the coin is certain to come up heads. Similarly we are much more likely to have observed a single tails if $\theta$ is small and heads is unlikely, which accounts for the decreasing slope. Let's suppose that we now observe two heads, the posterior becomes $\mathrm{Beta}(3, 2)$ which looks like this.
 
 <p align="center">
-  <img src="../images/blog/em2/beta32.png" width="350"/>
+  <img src="../images/blog/em2/beta32.png" />
 </p>
 
 Now that we've observed a heads, we can similarly rule out the possibility that $\theta = 0$, so the posterior density there also goes to zero. Furthermore, we've seen more heads than tails, so the posterior density is skewed towards higher values of $\theta$. Let's suppose now that we saw ten tails and twenty heads, so the proportion of heads is the same, but the amount of data goes up. Now the posterior is $\mathrm{Beta}(21, 11)$ which looks like this.
 
 <p align="center">
-  <img src="../images/blog/em2/beta2111.png" width="350"/>
+  <img src="../images/blog/em2/beta2111.png" />
 </p>
 
 Now the mode of the posterior distribution is closer to the proportion of heads that we've seen, and the variance has shrunk, i.e. we are more confident of the likely range of values for $\theta$.
@@ -231,7 +231,7 @@ We specify a uniform prior on theta (which is actually redundant, if we hadn't s
 
 To compile the model and draw samples we're going to use the Python interface PyStan. There are however many alternatives including interfaces for R, Matlab, Julia and the command line. Details can be found in the [Stan documentation][stan-docs]. To get started with PyStan, install it with `pip`.
 
-```sh
+```bash
 pip install pystan
 ```
 
