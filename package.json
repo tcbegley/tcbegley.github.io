@@ -1,24 +1,13 @@
 {
-  "name": "gatsby-starter-hello-friend",
-  "description": "A simple starter for Gatsby. That's it.",
-  "version": "0.2.0",
-  "author": "Radek Kozieł <radoslaw.koziel@gmail.com>",
-  "keywords": [
-    "gatsby",
-    "minimal",
-    "starter",
-    "blog",
-    "theme",
-    "dark",
-    "light",
-    "personal site"
-  ],
+  "name": "tcbegley.com",
+  "description": "Personal website of Tom Begley",
+  "version": "0.1.0",
+  "author": "Tom Begley <tomcbegley@gmail.com>",
   "license": "MIT",
   "scripts": {
     "build": "gatsby build",
     "dev": "gatsby clean && gatsby develop",
     "format": "prettier --write \"src/**/*.js\"",
-    "test": "echo \"Write tests! -> https://gatsby.app/unit-testing\"",
     "deploy": "gatsby build && gh-pages -d public -b master -o gh-pages"
   },
   "dependencies": {
@@ -75,9 +64,6 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/panr/gatsby-starter-hello-friend"
-  },
-  "bugs": {
-    "url": "https://github.com/panr/gatsby-starter-hello-friend/issues"
+    "url": "https://github.com/tcbegley/tcbegley.com"
   }
 }
