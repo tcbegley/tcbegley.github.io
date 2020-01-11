@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import SEO from "../components/seo";
 import Layout from "../components/layout";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGithub, faLinkedin, faTwitter } from "@fortawesome/free-brands-svg-icons";
 
 import style from "../styles/index.module.css";
 
@@ -37,13 +39,13 @@ const Index = () => {
           </p>
           <span className={style.social}>
             <a href="https://github.com/tcbegley">
-              <i class="fab fa-2x fa-github"></i>
+              <FontAwesomeIcon icon={faGithub} size="2x" />
             </a>
             <a href="https://linkedin.com/in/tcbegley">
-              <i class="fab fa-2x fa-linkedin"></i>
+              <FontAwesomeIcon icon={faLinkedin} size="2x" />
             </a>
             <a href="https://twitter.com/tcbegley">
-              <i class="fab fa-2x fa-twitter"></i>
+              <FontAwesomeIcon icon={faTwitter} size="2x" />
             </a>
           </span>
         </div>

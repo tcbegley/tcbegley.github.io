@@ -30,12 +30,6 @@ const SEO = ({ description, lang, meta, keywords, title }) => {
       }}
       title={metaTitle}
       titleTemplate={title ? `${title} :: ${siteTitle}` : siteTitle}
-      script={[
-        {
-          src: "https://kit.fontawesome.com/0c1cb59349.js",
-          crossorigin: "anonymous",
-        },
-      ]}
       meta={[
         {
           name: `description`,
