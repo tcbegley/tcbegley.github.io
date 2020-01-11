@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import Helmet from "react-helmet";
 import { useStaticQuery, graphql } from "gatsby";
 
+import "katex/dist/katex.min.css";
+
 const SEO = ({ description, lang, meta, keywords, title }) => {
   const data = useStaticQuery(graphql`
     query DefaultSEOQuery {

@@ -93,6 +93,13 @@ module.exports = {
       options: {
         plugins: [
           {
+            resolve: `gatsby-remark-katex`,
+            options: {
+              // Add any KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md here
+              strict: `ignore`,
+            },
+          },
+          {
             resolve: "gatsby-remark-embed-video",
             options: {
               related: false,
@@ -116,6 +123,7 @@ module.exports = {
               noInlineHighlight: false,
             },
           },
+          `gatsby-remark-copy-linked-files`,
         ],
       },
     },

@@ -30,29 +30,29 @@ Our goal is to build a model that can predict how someone will vote given their 
 
 We'll assume the demographic features we have measured are age, sex, education, vote at the last general election, and vote in the EU referendum. Writing out these models can get a bit messy, but I think it's generally helpful to see the formulas. We'll use the following notation:
 
-* $$P$$ is the number of parties we are including in the model.
-* $$y_{i}$$ is the party of choice for individual $$i$$. It is an integer in the range $$1, \dots, P$$.
-* $$\gamma_{ip}$$ is the probability of individual $$i$$ voting for party $$p$$.
-* $$x^{age}_i$$ is the age of individual $$i$$. We use similar notation for the other features.
-* $$\alpha_p$$, and $$\beta^{age}_p$$ are parameters in the model, the index $$p$$ determining which party the prediction is made for.
+* $P$ is the number of parties we are including in the model.
+* $y_{i}$ is the party of choice for individual $i$. It is an integer in the range $1, \dots, P$.
+* $\gamma_{ip}$ is the probability of individual $i$ voting for party $p$.
+* $x^{age}_i$ is the age of individual $i$. We use similar notation for the other features.
+* $\alpha_p$, and $\beta^{age}_p$ are parameters in the model, the index $p$ determining which party the prediction is made for.
 
-A simple choice of model would be logistic regression. Specifically we aim to learn parameters $$\alpha_p$$ and $$\beta^{age}_p$$, $$\beta^{sex}_p$$, $$\beta^{edu}_p$$, $$\beta^{ge}_p$$ and $$\beta^{eu}_p$$ for each party $$p$$ such that $$\gamma_{ip}$$, the probability that individual $$i$$ votes for party $$p$$ satisfies
+A simple choice of model would be logistic regression. Specifically we aim to learn parameters $\alpha_p$ and $\beta^{age}_p$, $\beta^{sex}_p$, $\beta^{edu}_p$, $\beta^{ge}_p$ and $\beta^{eu}_p$ for each party $p$ such that $\gamma_{ip}$, the probability that individual $i$ votes for party $p$ satisfies
 
-\\[
-    \gamma_{ip} = \sigma(\alpha\_p + \beta^{age}\_p x^{age}\_i + \dots + \beta^{eu}\_p x^{age}\_i),
-\\]
+$$
+    \gamma_{ip} = \sigma(\alpha_p + \beta^{age}_p x^{age}_i + \dots + \beta^{eu}_p x^{age}_i),
+$$
 
-where $$\sigma$$ is the [sigmoid function](https://en.wikipedia.org/wiki/Sigmoid_function).
+where $\sigma$ is the [sigmoid function](https://en.wikipedia.org/wiki/Sigmoid_function).
 
-For the non-ordered categorical variables such as $$x^{ge}_i$$ we would really need to one-hot encode the feature and have multiple parameters, but I'm going to ignore that for notational convenience.
+For the non-ordered categorical variables such as $x^{ge}_i$ we would really need to one-hot encode the feature and have multiple parameters, but I'm going to ignore that for notational convenience.
 
-The party that individual $$i$$ then selects as their preferred party is understood as a categorical random variable with probabilities $$\boldsymbol{\gamma}_{i}$$
+The party that individual $i$ then selects as their preferred party is understood as a categorical random variable with probabilities $\boldsymbol{\gamma}_{i}$
 
-\\[
-    y_{i} \sim \mathrm{Categorical}(\boldsymbol{\gamma}\_i).
-\\]
+$$
+    y_{i} \sim \mathrm{Categorical}(\boldsymbol{\gamma}_i).
+$$
 
-That's pretty much all we need for the simple version of this model! We can survey a portion of the electorate, ask them not only who their first choice of party is, but also their demographics. Given this data we can learn the parameters $$\boldsymbol{\alpha}$$, $$\boldsymbol{\beta}^{age}$$ etc. in the standard way. Then given a new individual, we can calculate their probabilities of favouring each party, $$\boldsymbol{\gamma}$$, and convert that into a choice by sampling from the categorical distribution with those probabilities.
+That's pretty much all we need for the simple version of this model! We can survey a portion of the electorate, ask them not only who their first choice of party is, but also their demographics. Given this data we can learn the parameters $\boldsymbol{\alpha}$, $\boldsymbol{\beta}^{age}$ etc. in the standard way. Then given a new individual, we can calculate their probabilities of favouring each party, $\boldsymbol{\gamma}$, and convert that into a choice by sampling from the categorical distribution with those probabilities.
 
 ## Poststratification
 
@@ -60,7 +60,7 @@ Suppose we have a way of predicting how someone will vote given their demographi
 
 The idea is actually pretty simple: to get the vote total for a particular party, we will sum up the number of people in the constituency of each demographic group, weighted by the probability that demographic group votes for the party in question.
 
-For example, let's suppose our model predicts that 25-34 year old women with a university education who voted Labour at the last election and voted to remain in the EU have a probability $$0.85$$ of voting Labour this time around. Then if there are 100 25-34 year old women with a university education who voted Labour at the last election and voted to remain in the EU, we expect that Labour will get 85 votes from this demographic group.
+For example, let's suppose our model predicts that 25-34 year old women with a university education who voted Labour at the last election and voted to remain in the EU have a probability $0.85$ of voting Labour this time around. Then if there are 100 25-34 year old women with a university education who voted Labour at the last election and voted to remain in the EU, we expect that Labour will get 85 votes from this demographic group.
 
 We repeat that process for all demographic groups, multiplying the number of people in the group by the probability any one of them will vote for a particular party. Summing the totals over all groups we get an estimate for the number of votes that party will get in that constituency.
 
@@ -76,13 +76,13 @@ The second problem is that we have assumed that demographics affect an individua
 
 The first thing we can do is to include constituency-level features in the model in addition to the individual-level features. There are many options here, things like population density (as a proxy for urban / rural divides), proportion of students, proportion who voted to leave the EU etc. tend to correlate pretty well with outcomes.
 
-For simplicity let's suppose that we just include population density in our model denoted $$c^{pd}_j$$. Including additional features is completely analogous. We want to learn parameters $$\xi^{pd}_p$$ such that
+For simplicity let's suppose that we just include population density in our model denoted $c^{pd}_j$. Including additional features is completely analogous. We want to learn parameters $\xi^{pd}_p$ such that
 
-\\[
-    \gamma\_{ip} = \sigma(\alpha\_p + \xi^{pd}\_p c^{pd}\_{j(i)} + \beta^{age}\_p x^{age}\_i + \dots + \beta^{eu}\_p x^{age}\_i).
-\\]
+$$
+    \gamma_{ip} = \sigma(\alpha_p + \xi^{pd}_p c^{pd}_{j(i)} + \beta^{age}_p x^{age}_i + \dots + \beta^{eu}_p x^{age}_i).
+$$
 
-We use the notation $$j(i)$$ to denote the constituency that individual $$i$$ lives in. The parameters $$\xi^{pd}_p$$ adjust the probabilities $$\gamma_{ip}$$ for the population density of constituency $$j(i)$$. This means our predictions now depend on the characteristics of the constituency, not just the demographics of the inhabitants. This is an improvement, but we can still do better.
+We use the notation $j(i)$ to denote the constituency that individual $i$ lives in. The parameters $\xi^{pd}_p$ adjust the probabilities $\gamma_{ip}$ for the population density of constituency $j(i)$. This means our predictions now depend on the characteristics of the constituency, not just the demographics of the inhabitants. This is an improvement, but we can still do better.
 
 ## Hierarchical models
 
@@ -100,9 +100,9 @@ We saw in part 2 that when we have a lot of data, our inferences are not terribl
 
 Conversely, suppose that the prior were well-informed, that is the knowledge it represents is known to be accurate for some reason. Then we can view the prior as capturing a large portion of our knowledge of the parameters, and the small amount of data we have is used to make fine adjustments.
 
-Let's think again about the coin flipping example. Suppose we are given a coin and we need to estimate the probability of getting heads (denoted $$\theta$$) when we flip the coin. But suppose also that we only get to flip the coin three times, we do and we get three heads. What should we estimate $$\theta$$ to be? If we took a non-Bayesian approach and calculated the [maximum likelihood estimate](https://en.wikipedia.org/wiki/Maximum_likelihood_estimate) we would estimate $$\theta$$ to be $$1$$! But such an estimate is probably unreasonable...
+Let's think again about the coin flipping example. Suppose we are given a coin and we need to estimate the probability of getting heads (denoted $\theta$) when we flip the coin. But suppose also that we only get to flip the coin three times, we do and we get three heads. What should we estimate $\theta$ to be? If we took a non-Bayesian approach and calculated the [maximum likelihood estimate](https://en.wikipedia.org/wiki/Maximum_likelihood_estimate) we would estimate $\theta$ to be $1$! But such an estimate is probably unreasonable...
 
-Say though that we knew something about the machine that made the coin. In particular we knew that the average value of $$\theta$$ for coins produced by the machine was $$0.5$$, and the standard deviation in $$\theta$$ is $$0.1$$. We could encapsulate this knowledge by placing a $$\mathrm{Beta}(10, 10)$$ prior on $$\theta$$. Now if we observed three heads in a row, instead of estimating $$\theta = 1.0$$, we obtain a $$\mathrm{Beta}(13, 10)$$ posterior on $$\theta$$, which has mean $$0.565$$. The full posterior looks like the below figure.
+Say though that we knew something about the machine that made the coin. In particular we knew that the average value of $\theta$ for coins produced by the machine was $0.5$, and the standard deviation in $\theta$ is $0.1$. We could encapsulate this knowledge by placing a $\mathrm{Beta}(10, 10)$ prior on $\theta$. Now if we observed three heads in a row, instead of estimating $\theta = 1.0$, we obtain a $\mathrm{Beta}(13, 10)$ posterior on $\theta$, which has mean $0.565$. The full posterior looks like the below figure.
 
 <p align="center">
   <img src="../images/blog/em3/low-data-posterior.png" width="350"/>
@@ -114,41 +114,41 @@ So if the prior can be used to regularise our estimates, the next question is ho
 
 ### Enter the hyperprior
 
-The solution is to learn the prior itself from the data! Let's go back to the coin flipping example again. This time we assume that we have $$J$$ coins $$C_1, \dots, C_J$$ with associated probabilities $$\theta_1, \dots, \theta_J$$ all produced by the same machine. We want to estimate each $$\theta_j$$, and like before we have limited data, so we want to use a prior to regularise our estimates. This time though, we aren't going to assume that we somehow know a good choice of prior.
+The solution is to learn the prior itself from the data! Let's go back to the coin flipping example again. This time we assume that we have $J$ coins $C_1, \dots, C_J$ with associated probabilities $\theta_1, \dots, \theta_J$ all produced by the same machine. We want to estimate each $\theta_j$, and like before we have limited data, so we want to use a prior to regularise our estimates. This time though, we aren't going to assume that we somehow know a good choice of prior.
 
-Since all the coins are assumed related, we use the same prior in each case $$\mathrm{Beta}(\alpha, \beta)$$. We don't know what values we should choose for $$\alpha$$ and $$\beta$$, so we place a prior on those too. This is known as a hyperprior, as it is a prior on the parameters of our prior.
+Since all the coins are assumed related, we use the same prior in each case $\mathrm{Beta}(\alpha, \beta)$. We don't know what values we should choose for $\alpha$ and $\beta$, so we place a prior on those too. This is known as a hyperprior, as it is a prior on the parameters of our prior.
 
 Our full model might now look something like this
 
 $$
-\begin{align*}
-    \alpha, \beta &\sim \text{half-Cauchy}(0, 2.5)\\
-    \theta_j &\sim \mathrm{Beta}(\alpha, \beta) \hspace{20pt} j = 1, \dots, J\\
-    y_j &\sim \mathrm{Binomial}(n_j, \theta_j) \hspace{20pt} j = 1, \dots, J
-\end{align*}
+\begin{array}{c}
+    \alpha, \beta \sim \text{half-Cauchy}(0, 2.5)\\
+    \theta_j \sim \mathrm{Beta}(\alpha, \beta) \hspace{20pt} j = 1, \dots, J\\
+    y_j \sim \mathrm{Binomial}(n_j, \theta_j) \hspace{20pt} j = 1, \dots, J
+\end{array}
 $$
 
-Our sampling distribution is the same as it was before. Our prior has the same form as before, and is shared by all the coins. This captures our knowledge that the coins were all produced by the same machine and hence are likely similar. Finally we have added a hyperprior on $$\alpha$$ and $$\beta$$. Making a good choice of hyperprior probably requires a bit more thought than we've given it here, in this case we just chose a relatively uninformative half-Cauchy distribution.
+Our sampling distribution is the same as it was before. Our prior has the same form as before, and is shared by all the coins. This captures our knowledge that the coins were all produced by the same machine and hence are likely similar. Finally we have added a hyperprior on $\alpha$ and $\beta$. Making a good choice of hyperprior probably requires a bit more thought than we've given it here, in this case we just chose a relatively uninformative half-Cauchy distribution.
 
-We can get away with a less informative hyperprior, because the posterior for $$\alpha$$ and $$\beta$$ depend on all of the data, hence are less sensitive to the small data problems. On the other hand the posterior for each $$\theta_j$$ depends only on data from coin $$j$$.
+We can get away with a less informative hyperprior, because the posterior for $\alpha$ and $\beta$ depend on all of the data, hence are less sensitive to the small data problems. On the other hand the posterior for each $\theta_j$ depends only on data from coin $j$.
 
-This still fits the paradigm of Bayesian inference, our parameters are $$\alpha, \beta, \theta_1, \dots, \theta_J$$, and we've broken up our prior using the chain rule
+This still fits the paradigm of Bayesian inference, our parameters are $\alpha, \beta, \theta_1, \dots, \theta_J$, and we've broken up our prior using the chain rule
 
-\\[
+$$
     p(\alpha, \beta, \theta_1, \dots, \theta_J) = p(\alpha, \beta)p(\theta_1, \dots, \theta_J | \alpha, \beta)
-\\]
+$$
 
 Which is to say that mathematically nothing has really changed, but conceptually we've captured the hierarchical structure of the data in our model.
 
-So what is going to happen when we perform inference on this model? We only have a few observations of any individual coin, but we have many observations of coin flips from coins produced by the machine. Collectively these inform the values of $$\alpha$$ and $$\beta$$, which govern the prior on each $$\theta_j$$. Having learnt an informative prior for the $$\theta_j$$ from our data, we can effectively regularise the small data estimates we would otherwise make for each coin.
+So what is going to happen when we perform inference on this model? We only have a few observations of any individual coin, but we have many observations of coin flips from coins produced by the machine. Collectively these inform the values of $\alpha$ and $\beta$, which govern the prior on each $\theta_j$. Having learnt an informative prior for the $\theta_j$ from our data, we can effectively regularise the small data estimates we would otherwise make for each coin.
 
 ### Back to election models
 
-This is exactly what we now do with our election model. Rather than having a single set of parameters $$\beta^{age}_p, \dots, \beta^{ge}_p$$ governing how an individuals demographics affect their vote choice, we have a separate set of parameters for each constituency $$\beta^{age}_{jp}, \dots, \beta^{ge}_{jp}$$. Ordinarily we wouldn't be able to effectively infer values for these parameters due to the low volumes of data in each constituency, however, by placing a shared prior on these parameters, we learn reasonable values for the parameters from all of the data, and then make constituency specific adjustments based on the data from that constituency. Now our model looks something like this
+This is exactly what we now do with our election model. Rather than having a single set of parameters $\beta^{age}_p, \dots, \beta^{ge}_p$ governing how an individuals demographics affect their vote choice, we have a separate set of parameters for each constituency $\beta^{age}_{jp}, \dots, \beta^{ge}_{jp}$. Ordinarily we wouldn't be able to effectively infer values for these parameters due to the low volumes of data in each constituency, however, by placing a shared prior on these parameters, we learn reasonable values for the parameters from all of the data, and then make constituency specific adjustments based on the data from that constituency. Now our model looks something like this
 
-\\[
-    \gamma\_{ip} = \sigma(\alpha\_{j(i)p} + \xi^{pd}\_p c^{pd}\_{j(i)} + \beta^{age}\_{j(i)p} x^{age}\_i + \dots + \beta^{eu}\_{j(i)p} x^{age}\_i).
-\\]
+$$
+    \gamma_{ip} = \sigma(\alpha_{j(i)p} + \xi^{pd}_p c^{pd}_{j(i)} + \beta^{age}_{j(i)p} x^{age}_i + \dots + \beta^{eu}_{j(i)p} x^{age}_i).
+$$
 
 I mentioned that we can think of priors as regularisers. In the case of hierarchical models, the shared prior is like a regulariser that stops the estimates for each group from diverging too much from each other by pulling the estimates towards a pooled estimate. This is aligned with the fact that we expect the effect of demographics on vote choice to be roughly similar in each constituency.
 

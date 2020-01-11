@@ -11,7 +11,6 @@ const tagsTemplate = path.resolve(`./src/templates/tags.js`);
 
 exports.createPages = async ({ actions, graphql, getNodes }) => {
   const { createPage } = actions;
-  const allNodes = getNodes();
 
   const allMarkdown = await graphql(`
     {
