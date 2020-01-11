@@ -108,19 +108,22 @@ $$
 
 The right hand side can be expressed in terms of the cumulative distribution function (CDF) of the beta distribution. Since the beta distribution is a commonly used and well understood one-dimensional distribution, numerical implementations of the CDF are readily available. For example, let's suppose we flip the coin thirty times, and observe twenty heads and ten tails. Based on the calculations we did above our posterior distribution is $\mathrm{Beta}(21, 11)$, so in Python with SciPy we can do
 
-<pre class="highlight"><code class="python">>>> from scipy.stats.distributions import beta
+```python
+>>> from scipy.stats.distributions import beta
 >>> 1 - beta.cdf(0.5, 21, 11)
-0.9646222270093858</code></pre>
+0.9646222270093858
+```
 
 ## Inference with posterior samples
 
 In general, particularly with high-dimensional posterior distributions where we have many parameters in the model, approximating the integrals we need to evaluate to do inference will be much harder. It turns out though, that we can get good approximations to these integrals if we have access to samples from the posterior distribution. For example, this code snippet draws ten thousands samples from the posterior, then calculates the proportion that are greater than $0.5$. The answer is a close approximation to the answer obtained from the CDF above.
 
-<pre class="highlight"><code class="python">>>> import numpy as np
+```python
+>>> import numpy as np
 >>> samples = np.random.beta(21, 11, 10000)
 >>> (samples > 0.5).mean()
 0.9653
-</code></pre>
+```
 
 This is a specific example of using a [Monte Carlo estimate][mci] to approximate an integral. In general, if we have an integral of the form
 
@@ -150,15 +153,17 @@ $$
 
 In our case, with the samples we drew before, our approximation of the posterior mean is
 
-<pre class="highlight"><code class="python">>>> samples.mean()
+```python
+>>> samples.mean()
 0.6562683695235446
-</code></pre>
+```
 
 Similarly, if we wanted to predict the probability of getting a heads, then tails (in that order) on the next two coin flips, we have $p(\text{heads then tails} \vert \theta) = \theta (1 - \theta)$, which we can approximate with the samples as follows
 
-<pre class="highlight"><code class="python">>>> (samples * (1 - samples)).mean()
+```python
+>>> (samples * (1 - samples)).mean()
 0.2187
-</code></pre>
+```
 
 Just about any inference we might like to make about the parameters in our model can be calculated in a natural way like this, provided you can draw samples from the posterior distribution. Though it is out of scope for this particular series of blog posts, a popular family of algorithms for drawing samples from arbitrary probability distirbutions are Markov chain Monte Carlo (MCMC) algorithms. One of the nice features of these algorithms is that they often don't require you to normalise the posterior distribution, it suffices to know it up to a multiplicative constant. In the context of Bayesian statistics where we calculate the posterior as the product of two terms that ordinarily would then need to be normalised, this is extremely convenient! If you are interested in seeing how we could have used an MCMC sampler to sample from our posterior, check out the addendum about drawing posterior samples using Stan.
 
@@ -174,7 +179,8 @@ Stan has its own modelling language which we use to specify the model. The Stan 
 
 We need to define the data, parameters and then specify the prior and sampling distribution. We do so in three blocks of code labelled `data`, `parameters` and `model`. Stan does the rest by computing the posterior and drawing samples using HMC. Here is the full model we are going to use.
 
-<pre class="highlight"><code class="stan">data {
+```stan
+data {
   int<lower=0> N;  // number of coin flips
   int<lower=0, upper=N> y;  // number of heads
 }
@@ -187,51 +193,61 @@ model {
   // the sampling distribution
   y ~ binomial(N, theta);
 }
-</code></pre>
+```
 
 Let's look at each block in turn. First the `data` block.
 
-<pre class="highlight"><code class="stan">data {
+```stan
+data {
   int<lower=0> N;  // number of coin flips
   int<lower=0, upper=N> y;  // number of heads
-}</code></pre>
+}
+```
 
 We specify that Stan should expect two pieces of information: the number of times we flipped the coin `N`, and the number of times it came up heads `y`. Stan is a typed language, so we specify that both `N` and `y` are integers. Additionally, Stan allows us to place constraints on the data which will be checked at runtime. We specify that we can't have a negative number of coin flips, and the number of heads should be non-negative and less than `N`.
 
 Next the parameters block
 
-<pre class="highlight"><code class="stan">parameters {
+```stan
+parameters {
   real<lower=0, upper=1> theta;  // probability of heads
-}</code></pre>
+}
+```
 
 We have only one parameter in our model, `theta`. This is the probability that a single flip will come up heads. As such it should be a real number between 0 and 1.
 
 Finally the model
 
-<pre class="highlight"><code class="stan">model {
+```stan
+model {
   // the prior
   theta ~ uniform(0, 1);
   // the sampling distribution
   y ~ binomial(N, theta);
-}</code></pre>
+}
+```
 
 We specify a uniform prior on theta (which is actually redundant, if we hadn't specified a prior on `theta` then Stan would have automatically chosen a uniform prior for us), and a binomial sampling distribution for `y`. The Stan syntax mirrors mathematical notation quite nicely, so the model specification is quite readable.
 
 To compile the model and draw samples we're going to use the Python interface PyStan. There are however many alternatives including interfaces for R, Matlab, Julia and the command line. Details can be found in the [Stan documentation][stan-docs]. To get started with PyStan, install it with `pip`.
 
-<pre class="highlight"><code class="bash">pip install pystan</code></pre>
+```sh
+pip install pystan
+```
 
 Now we can load the model as a `pystan.StanModel` object and use the `sampling` method to draw samples. Data is passed to the model using a Python dictionary as follows. We'll assume twenty heads and ten tails like we did previously.
 
-<pre class="highlight"><code class="python">import pystan
+```python
+import pystan
 
 sm = pystan.StanModel(file="model.stan")
 fit = sm.sampling(data={"N": 30, "y": 20}, iter=5000)
-</code></pre>
+```
 
 If you run the above code snippet, Stan will create four chains (the default), and draw 5000 samples from each. MCMC samplers can be sensitive to initial conditions, so running multiple independent chains helps us assess whether the chains have converged to the correct distributions. For each chain we discard the first 50% of samples as warmup, leaving us with a total of 10000 post-warmup draws from the four chains. Stan prints a summary of the sampling like the one below.
 
-<pre class="highlight"><code class="plaintext">Inference for Stan model: anon_model_bd7785d44829c52cfe28d5321faadbc2.
+```text
+Inference for Stan model: anon_model_bd7785d44829c52cfe28d5321faadbc2.
 4 chains, each with iter=5000; warmup=2500; thin=1;
 post-warmup draws per chain=2500, total post-warmup draws=10000.
 
@@ -243,7 +259,7 @@ Samples were drawn using NUTS at Sun Nov 10 10:12:21 2019.
 For each parameter, n_eff is a crude measure of effective sample size,
 and Rhat is the potential scale reduction factor on split chains (at
 convergence, Rhat=1).
-</code></pre>
+```
 
 For each parameter in our model, in this case `theta`, we get an estimate of the posterior mean, the standard error, the standard deviation and various percentiles. This means at a glance we can read off some basic information about `theta` such as the posterior mean, which in this case is $0.66$. We can also see that a central 95% credible interval for `theta` would be $0.49$ to $0.81$, so there's still a fairly wide range of credible values.
 
@@ -251,16 +267,18 @@ The final two columns `n_eff` and `Rhat` help us understand how correlated the s
 
 We can get the sampled values of `theta` and do computations with them manually, for example, let's calculate the probability that `theta` is greater than $0.5$ and compare to our earlier answers
 
-<pre class="highlight"><code class="python">>>> samples = fit.extract()["theta"]
+```python
+>>> samples = fit.extract()["theta"]
 >>> (samples > 0.5).mean()
 0.9685
-</code></pre>
+```
 
 or the probability we next flip a heads, then tails
 
-<pre class="highlight"><code class="python">>>> (samples * (1 - samples)).mean()
+```python
+>>> (samples * (1 - samples)).mean()
 0.21900253298714248
-</code></pre>
+```
 
 Both answers are in line with the results we saw earlier, but this time around we didn't have to explicitly compute the posterior distribution! Stan is able to do all of the heavy lifting for us. When dealing with more complicated distributions than what we've been considering, this turns out to be crucial for making inference tractable.
 
