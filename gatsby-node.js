@@ -58,21 +58,6 @@ exports.createPages = async ({ actions, graphql, getNodes }) => {
     pathPrefix: "/blog",
   });
 
-  // Create each markdown page and post
-  forEach(({ node }, index) => {
-    const previous = index === 0 ? null : posts[index - 1].node;
-    const next = index === posts.length - 1 ? null : posts[index + 1].node;
-
-    createPage({
-      path: node.frontmatter.path,
-      component: pageTemplate,
-      context: {
-        next,
-        previous,
-      },
-    });
-  }, posts);
-
   // Create tag pages
   const tags = filter(
     tag => not(isNil(tag)),

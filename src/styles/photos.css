@@ -1,0 +1,7 @@
+.carousel .slide {
+  background-color: transparent;
+}
+
+.carousel .slide .legend {
+  opacity: 0
+}
