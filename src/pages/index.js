@@ -3,9 +3,14 @@ import PropTypes from "prop-types";
 import SEO from "../components/seo";
 import Layout from "../components/layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faGithub, faLinkedin, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import {
+  faGithub,
+  faLinkedin,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
 
 import style from "../styles/index.module.css";
+import "@fortawesome/fontawesome-svg-core/styles.css";
 
 const Index = () => {
   return (
