@@ -3,11 +3,14 @@ import PropTypes from "prop-types";
 import SEO from "../components/seo";
 import Layout from "../components/layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { config } from "@fortawesome/fontawesome-svg-core";
 import {
   faGithub,
   faLinkedin,
   faTwitter,
 } from "@fortawesome/free-brands-svg-icons";
+
+config.autoAddCss = false;
 
 import style from "../styles/index.module.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -16,7 +19,7 @@ const Index = () => {
   return (
     <>
       <SEO />
-      <Layout footer={false}>
+      <Layout>
         <div className={style.indexContainer}>
           <div className={style.indexRow}>
             <div className={style.textCol}>

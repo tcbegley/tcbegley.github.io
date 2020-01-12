@@ -7,7 +7,7 @@ import Footer from "./footer";
 
 import "../styles/layout.css";
 
-const Layout = ({ children, footer, column }) => {
+const Layout = ({ children, column }) => {
   const data = useStaticQuery(graphql`
     query SiteTitleQuery {
       site {
@@ -60,7 +60,7 @@ const Layout = ({ children, footer, column }) => {
       <div className="content" style={column ? flexColumnStyle : null}>
         {children}
       </div>
-      {footer && <Footer copyrights={copyrights} />}
+      <Footer copyrights={copyrights} />
     </div>
   );
 };
