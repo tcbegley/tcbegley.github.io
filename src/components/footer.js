@@ -12,7 +12,7 @@ const Footer = ({ copyrights }) => (
     ) : (
       <>
         <span className="footerCopyrights">
-          © Tom Begley 2019 | Built with <a href="https://www.gatsbyjs.org">Gatsby</a>
+          © Tom Begley 2020 | Built with <a href="https://www.gatsbyjs.org">Gatsby</a>
         </span>
       </>
     )}
