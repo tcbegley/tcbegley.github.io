@@ -3,10 +3,14 @@ import {
   faLinkedin,
   faTwitter,
 } from '@fortawesome/free-brands-svg-icons'
-import React from 'react'
-import PropTypes from 'prop-types'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { config } from '@fortawesome/fontawesome-svg-core'
+
+import React from 'react'
+import PropTypes from 'prop-types'
+import { graphql } from 'gatsby'
+import Img from 'gatsby-image'
+
 import SEO from '../components/seo'
 import Layout from '../components/layout'
 
@@ -15,7 +19,7 @@ import '@fortawesome/fontawesome-svg-core/styles.css'
 
 config.autoAddCss = false
 
-const Index = () => (
+const Index = ({ data }) => (
   <>
     <SEO />
     <Layout>
@@ -29,9 +33,8 @@ const Index = () => (
             </p>
           </div>
           <div className={style.imgCol}>
-            <img
-              src="/assets/me.jpg"
-              width={200}
+            <Img
+              fixed={data.file.childImageSharp.fixed}
               alt="tom"
               style={{ borderRadius: 8 }}
             />
@@ -61,12 +64,21 @@ const Index = () => (
   </>
 )
 
+export const query = graphql`
+  query MyQuery {
+    file(relativePath: { eq: "me.jpg" }) {
+      childImageSharp {
+        id
+        fixed(width: 200) {
+          ...GatsbyImageSharpFixed
+        }
+      }
+    }
+  }
+`
+
 Index.propTypes = {
   data: PropTypes.object.isRequired,
-  pageContext: PropTypes.shape({
-    nextPagePath: PropTypes.string,
-    previousPagePath: PropTypes.string,
-  }),
 }
 
 export default Index
