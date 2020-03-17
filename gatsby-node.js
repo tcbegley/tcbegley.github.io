@@ -1,16 +1,16 @@
-const { paginate } = require("gatsby-awesome-pagination");
-const { createFilePath } = require(`gatsby-source-filesystem`);
-const { forEach, uniq, filter, not, isNil, flatMap } = require("rambdax");
-const path = require("path");
-const { toKebabCase } = require("./src/helpers");
+const { paginate } = require('gatsby-awesome-pagination')
+const { createFilePath } = require(`gatsby-source-filesystem`)
+const { forEach, uniq, filter, not, isNil, flatMap } = require('rambdax')
+const path = require('path')
+const { toKebabCase } = require('./src/helpers')
 
-const pageTemplate = path.resolve(`./src/templates/page.js`);
-const postTemplate = path.resolve(`./src/templates/post.js`);
-const blogIndexTemplate = path.resolve(`./src/templates/blogIndex.js`);
-const tagsTemplate = path.resolve(`./src/templates/tags.js`);
+const pageTemplate = path.resolve(`./src/templates/page.js`)
+const postTemplate = path.resolve(`./src/templates/post.js`)
+const blogIndexTemplate = path.resolve(`./src/templates/blogIndex.js`)
+const tagsTemplate = path.resolve(`./src/templates/tags.js`)
 
 exports.createPages = async ({ actions, graphql, getNodes }) => {
-  const { createPage } = actions;
+  const { createPage } = actions
 
   const allMarkdown = await graphql(`
     {
@@ -38,16 +38,16 @@ exports.createPages = async ({ actions, graphql, getNodes }) => {
         }
       }
     }
-  `);
+  `)
 
   const {
     allMarkdownRemark: { edges: markdownPages },
     site: { siteMetadata },
-  } = allMarkdown.data;
+  } = allMarkdown.data
 
-  const filterBy = collection => mp => mp.node.fields.collection === collection;
-  const pages = markdownPages.filter(filterBy("pages"));
-  const posts = markdownPages.filter(filterBy("posts"));
+  const filterBy = collection => mp => mp.node.fields.collection === collection
+  const pages = markdownPages.filter(filterBy('pages'))
+  const posts = markdownPages.filter(filterBy('posts'))
 
   // Create posts index with pagination
   paginate({
@@ -55,21 +55,21 @@ exports.createPages = async ({ actions, graphql, getNodes }) => {
     items: posts,
     component: blogIndexTemplate,
     itemsPerPage: siteMetadata.postsPerPage,
-    pathPrefix: "/blog",
-  });
+    pathPrefix: '/blog',
+  })
 
   // Create tag pages
   const tags = filter(
     tag => not(isNil(tag)),
     uniq(flatMap(post => post.node.frontmatter.tags, posts)),
-  );
+  )
 
   forEach(tag => {
     const postsWithTag = posts.filter(
       post =>
         post.node.frontmatter.tags &&
         post.node.frontmatter.tags.indexOf(tag) !== -1,
-    );
+    )
 
     paginate({
       createPage,
@@ -80,12 +80,12 @@ exports.createPages = async ({ actions, graphql, getNodes }) => {
       context: {
         tag,
       },
-    });
-  }, tags);
+    })
+  }, tags)
 
   forEach(({ node }, index) => {
-    const previous = index === 0 ? null : posts[index - 1].node;
-    const next = index === posts.length - 1 ? null : posts[index + 1].node;
+    const previous = index === 0 ? null : posts[index - 1].node
+    const next = index === posts.length - 1 ? null : posts[index + 1].node
 
     createPage({
       path: node.frontmatter.path,
@@ -94,24 +94,24 @@ exports.createPages = async ({ actions, graphql, getNodes }) => {
         next,
         previous,
       },
-    });
-  }, posts);
+    })
+  }, posts)
 
   forEach(({ node }, index) => {
     createPage({
       path: node.frontmatter.path,
       component: pageTemplate,
-    });
-  }, pages);
+    })
+  }, pages)
 
   return {
     sortedPages: posts,
     tags,
-  };
-};
+  }
+}
 
 exports.sourceNodes = ({ actions }) => {
-  const { createTypes } = actions;
+  const { createTypes } = actions
   const typeDefs = `
     type MarkdownRemark implements Node {
       frontmatter: Frontmatter!
@@ -126,18 +126,18 @@ exports.sourceNodes = ({ actions }) => {
       excerpt: String
       coverImage: File @fileByRelativePath
     }
-  `;
-  createTypes(typeDefs);
-};
+  `
+  createTypes(typeDefs)
+}
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
   if (node.internal.type === `MarkdownRemark`) {
-    const { createNodeField } = actions;
-    const parent = getNode(node.parent);
+    const { createNodeField } = actions
+    const parent = getNode(node.parent)
     createNodeField({
       node,
-      name: "collection",
+      name: 'collection',
       value: parent.sourceInstanceName,
-    });
+    })
   }
-};
+}

@@ -40,9 +40,9 @@ const Header = props => {
       <Helmet>
         <body
           className={
-            (userTheme || defaultTheme) === "light"
-              ? "light-theme"
-              : "dark-theme"
+            (userTheme || defaultTheme) === 'light'
+              ? 'light-theme'
+              : 'dark-theme'
           }
         />
       </Helmet>
@@ -55,7 +55,7 @@ const Header = props => {
               ) : (
                 <>
                   <span className={style.mark}>></span>
-                  <Typist cursor={{show: false}}>
+                  <Typist cursor={{ show: false }}>
                     <span className={style.text}>{logoText}</span>
                   </Typist>
                   <span className={style.cursor} />
@@ -78,7 +78,7 @@ const Header = props => {
         </div>
       </header>
     </>
-  );
+  )
 }
 
 Header.propTypes = {
