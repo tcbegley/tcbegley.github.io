@@ -36,7 +36,7 @@ const Index = ({ data }) => (
             <Img
               fixed={data.file.childImageSharp.fixed}
               alt="tom"
-              style={{ borderRadius: 8 }}
+              style={{ borderRadius: 8, width: 200, height: 200 }}
             />
           </div>
         </div>
@@ -69,7 +69,7 @@ export const query = graphql`
     file(relativePath: { eq: "me.jpg" }) {
       childImageSharp {
         id
-        fixed(width: 200) {
+        fixed(width: 400) {
           ...GatsbyImageSharpFixed
         }
       }
