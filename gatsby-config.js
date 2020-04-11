@@ -77,9 +77,10 @@ module.exports = {
       },
     },
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: `gatsby-plugin-goatcounter`,
       options: {
-        trackingId: 'UA-156276315-1',
+        // REQUIRED! https://[my_code].goatcounter.com
+        code: 'tcbegley',
       },
     },
     {
@@ -110,7 +111,6 @@ module.exports = {
           {
             resolve: `gatsby-remark-katex`,
             options: {
-              // Add any KaTeX options from https://github.com/KaTeX/KaTeX/blob/master/docs/options.md here
               strict: `ignore`,
             },
           },
