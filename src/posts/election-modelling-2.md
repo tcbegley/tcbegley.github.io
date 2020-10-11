@@ -231,7 +231,7 @@ We specify a uniform prior on theta (which is actually redundant, if we hadn't s
 
 To compile the model and draw samples we're going to use the Python interface PyStan. There are however many alternatives including interfaces for R, Matlab, Julia and the command line. Details can be found in the [Stan documentation][stan-docs]. To get started with PyStan, install it with `pip`.
 
-```bash
+```sh
 pip install pystan
 ```
 
