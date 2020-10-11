@@ -6,32 +6,31 @@ This is the source code for my personal website. It is built with [Gatsby][gatsb
 
 Install dependencies, and the Gatsby CLI
 
-```bash
+```sh
 npm install
-npm install -g gatsby-cli
 ```
 
 Build development bundle with hot reloading
 
-```bash
-gatsby develop
+```sh
+npm run dev
 ```
 
 Build a production bundle
 
-```bash
-gatsby build
+```sh
+npm run build
 ```
 
 Serve the production bundle
 
-```bash
-gatsby serve
+```sh
+npm run serve
 ```
 
-Publish to github pages
+Updates are automatically published when new commits are pushed to `master`. Manually publish to GitHub pages with
 
-```bash
+```sh
 npm run deploy
 ```
 
