@@ -1,0 +1,250 @@
+---
+title: 'Bayesian billiards'
+path: '/blog/bayesian-billiards'
+date: '2020-11-21 08:00:00'
+author: 'Tom'
+excerpt:
+  'In his seminal paper "An Essay twoards solving a Problem in the Doctrine of
+  Chances", Thomas Bayes introduced a thought experiment involving six balls
+  thrown randomly onto a billiards table. '
+tags: ['bayesian statistics', 'interactive']
+---
+
+In his seminal [paper][bayes-paper] "An Essay twoards solving a Problem in the
+Doctrine of Chances", [Thomas Bayes][bayes] introduced a thought experiment
+involving six balls thrown randomly onto a billiards table. This example is
+often used in popular science as an introduction to the ideas of Bayesian
+statistics, as it nicely demonstrates the difference between a frequentist
+maximum likelihood estimate and a Bayesian point estimate. Having seen this
+example before, I had also heard a claim that the Bayesian estimate is "slightly
+better", without having heard a clarification of what "better" means in this
+context. In this post I'm going to analyse the problem, and compare the two
+standard ways of solving it across a number of different metrics.
+
+## The problem
+
+Let's begin by stating Bayes' thought experiment. This description is taken from
+[The Art of Statistics][spiegel] by David Spiegelhalter (which is a very
+enjoyable read):
+
+> Suppose a white ball is thrown at random on to a billiards table, its position
+> along the table marked with a line, and then the white ball is removed. A
+> number of red balls are then thrown at random on to the table, and you are
+> told only how many lie to the left and how many to the right of the line.
+> Where do you think the line might be, and what should be your probability of
+> the next red ball falling to the left of the line.
+
+**TODO** put a little widget here?
+
+Let's set up some notation so that we can discuss possible solutions. First
+we'll denote the position of the white ball by $\theta$. The exact length of the
+table is irrelevant, so we'll assume that $0 \leq \theta \leq 1$, so that
+$\theta$ represents the proportion of the table to the left of the line. Since
+the ball is thrown randomly, it is reasonable to assume that
+
+$$
+    \theta \sim \mathrm{Unif}(0, 1)
+$$
+
+Next suppose that we have $n$ red balls that we throw randomly onto the table.
+The probability that any one red ball stops to the left of the line is $\theta$,
+so the number $y$ of red balls that end up to the left of the line can be
+modelled as
+
+$$
+    y \sim \mathrm{Binomial}(n, \theta)
+$$
+
+Our goal is to come up with the best possible estimate of $\theta$ given $n$ and
+$y$.
+
+## The maximum likelihood estimate
+
+Maximum likelihood estimation produces an estimate for the unknown parameters in
+a model by choosing those parameters that maximise the likelihood. In our case,
+we want to maximise
+
+$$
+    L(\theta) := p(y | \theta) = \binom{n}{y}\theta^y (1 - \theta)^{n-y}
+$$
+
+Equivalently, since $\log$ is a monotone function, we can maximise the
+log-likelihood
+
+$$
+    l(\theta) := \log(p(y | \theta)) = y\log\theta + (n-y)\log(1 - \theta) + C
+$$
+
+where $C$ is a constant independent of $\theta$. We can easily differentiate $l$
+to find a local maximum at
+
+$$
+    \hat \theta_{MLE} = \frac{y}{n}
+$$
+
+In other words, the maximum likelihood estimate for the position of the line is
+simply the proportion of red balls that ended up to the left of the line.
+
+## A Bayesian point estimate
+
+We have already specified our prior (uniform distribution on $\theta$) and
+sampling distribution (binomial distribution on $y$), so all that remains is to
+calculate the posterior. By Bayes' rule
+
+$$
+    p(\theta | y) \propto p(\theta)p(y | \theta) \propto \theta^y (1 - \theta)^{n-y}
+$$
+
+We recognise the right hand side as an unnormalised Beta density, and so
+conclude that
+
+$$
+    \theta | y \sim \mathrm{Beta}(y + 1, n - y + 1)
+$$
+
+This gives us a distribution over possible positions of the line based on the
+observed data. In order to turn this into a point estimate, we could require for
+example that our expected squared loss over the posterior distribution is
+minimised
+
+$$
+    \hat \theta_{Bayes} = \mathrm{argmin}_{\tilde \theta} \mathbb{E}[(\theta - \tilde \theta)^2 | y]
+$$
+
+which is in fact the same as simply choosing $\hat \theta_{Bayes}$ to be the
+posterior mean
+
+$$
+    \hat \theta_{Bayes} = \mathbb{E}[\theta | y]
+$$
+
+In our case, with the Beta posterior this means that
+
+$$
+    \hat \theta_{Bayes} = \frac{y + 1}{n + 2}
+$$
+
+This is somewhat similar to the maximum likelihood estimate, but the modified
+numerator and denominator means that our estimates are always pulled back
+towards the center of the table. Most notable if $0$ of the red balls landed to
+the left of the line, the maximum likelihood estimate is that the line is on the
+left edge of the table, whereas the Bayesian posterior mean puts the line at
+$1 / 7 \approx 0.143$, which intuitively seems more reasonable.
+
+This difference is a consequence of the fact that the Bayesian estimate has
+built into it the knowledge that we threw the white ball at random, and
+moderates the chance of making extreme inferences like drawing the line right on
+the edge of the table. This property is also more generally true of Bayesian
+method: priors can help regularise our inferences, particularly when we have
+limited data.
+
+## Comparing the two estimates
+
+To compare the estimates, let's do some simulation. Using NumPy it's very easy
+for us to perform this experiment thousands or even millions of times.
+
+```python
+import numpy as np
+
+def simulate(n_trials=1_000_000, n_red=5):
+    # throw a white ball and n_red red balls onto n_trials tables
+    white = np.random.random(size=n_trials)
+    red = np.random.random(size=(n_trials, n_red))
+
+    # count the number of red balls to the left of the white ball
+    n_red_left = (red < white[:, None]).sum(axis=1)
+
+    # construct the two estimates
+    mle = n_red_left / n_red
+    posterior_mean = (n_red_left + 1) / (n_red + 2)
+
+    return white, mle, posterior_mean
+```
+
+We can repeat the experiment a million times, recording the true location of the
+line, and the maximum likelihood and Bayesian estimates.
+
+```python
+white, mle, posterior_mean = simulate(1_000_000)
+```
+
+### Brier score
+
+The Brier score is a [proper scoring rule][proper-score] that measures the
+quality of probabilistic forecasts. Suppose we make a forecast
+$0 \leq \hat \theta \leq 1$ that the next red ball will land to the left of the
+line. We then observe the outcome $o = 0, 1$. The Brier score for this single
+forecast is
+
+$$
+    (\hat \theta - o)^2
+$$
+
+that is, it's the square of the probability we assigned to the true outcome
+_not_ occuring. If we had full confidence that $o = 1$ we would forecast
+$\hat \theta = 1$, in which case the Brier score would be $0$ if we are correct,
+but $1$ if we were wrong! If we were less sure, maybe our forecast is
+$\hat \theta = 0.7$ in which case we would get a score of $0.3 ^ 2 = 0.09$ if
+$o = 1$ and $0.7^2 = 0.49$ if we are wrong. If we make a sequence
+$\hat \theta_i$ of $N$ forecasts with corresponding outcomes, the Brier score is
+simply an average over all forecasts
+
+$$
+    \frac{1}{N} \sum_{i=1}^N (\hat \theta_i - o_i)^2
+$$
+
+Why square the difference rather than take the absolute value? This is to
+encourage proper calibration of forecasts. That is to say if an outcome occurs
+70% of the time, the best forecast should be to assign a probability $0.7$ to
+that outcome. If the score were the absolute difference $|\hat \theta - o|$ then
+we are actually incentivised to exaggerate our confidence. If $P(o=1) = 0.7$
+then a forecast $\hat \theta \equiv 0.7$ yields a score
+
+$$
+    \mathbb{E}[|o - 0.7|] = 0.3 \times 0.7 + 0.7 \times 0.3 = 0.42
+$$
+
+whereas
+
+$$
+    \mathbb{E}[|o - 1|] = 0.3 \times 1 + 0.7 \times 0 = 0.3
+$$
+
+so our expected score is actually lower for the worse forecast!
+
+#### Brier score - results
+
+I calculated the Brier scores for both estimates as follows
+
+```python
+next_ball = np.random.binomial(1, white)
+
+mle_brier = ((mle - next_ball) ** 2).mean()
+bayes_brier = ((posterior_mean - next_ball) ** 2).mean()
+
+print(f"MLE Brier score: {mle_brier:.4f}")
+print(f"Bayes Brier score: {bayes_brier:.4f}")
+```
+
+which output
+
+```plaintext
+MLE Brier score: 0.2002
+Bayes Brier score: 0.1906
+```
+
+## Conclusion
+
+While it did turn out that the Bayesian posterior mean wound up having a lower
+Brier score, the difference was relatively small, so maybe it's not a compelling
+reason to choose one approach over the other. It is however a nice illustration
+of the fact that Bayesian inference is able to incorporate domain knowledge. In
+this case the fact that we know the white ball was thrown randomly and so would
+be equally likely to be anywhere on the table. The maximum likelihood estimate
+doesn't account for this knowledge, and is therefore prone to extreme inferences
+like estimating the line is right on one of the edges of the table.
+
+[bayes]: https://en.wikipedia.org/wiki/Thomas_Bayes
+[bayes-paper]: https://royalsocietypublishing.org/doi/pdf/10.1098/rstl.1763.0053
+[spiegel]: http://www.statslab.cam.ac.uk/~david/
+[proper-score]: https://en.wikipedia.org/wiki/Scoring_rule#ProperScoringRules

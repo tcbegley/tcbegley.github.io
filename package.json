@@ -5,6 +5,7 @@
   "author": "Tom Begley <tomcbegley@gmail.com>",
   "license": "MIT",
   "scripts": {
+    "start": "npm run dev",
     "build": "gatsby build",
     "dev": "gatsby clean && gatsby develop",
     "format": "prettier --write src/**/* !src/images/**/* gatsby-*.js",
