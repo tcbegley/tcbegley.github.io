@@ -4,13 +4,13 @@ path: '/blog/bayesian-billiards'
 date: '2020-11-21 08:00:00'
 author: 'Tom'
 excerpt:
-  'In his seminal paper "An Essay twoards solving a Problem in the Doctrine of
+  'In his seminal paper "An Essay towards solving a Problem in the Doctrine of
   Chances", Thomas Bayes introduced a thought experiment involving six balls
   thrown randomly onto a billiards table. '
 tags: ['bayesian statistics', 'interactive']
 ---
 
-In his seminal [paper][bayes-paper] "An Essay twoards solving a Problem in the
+In his seminal [paper][bayes-paper] "An Essay towards solving a Problem in the
 Doctrine of Chances", [Thomas Bayes][bayes] introduced a thought experiment
 involving six balls thrown randomly onto a billiards table. This example is
 often used in popular science as an introduction to the ideas of Bayesian
@@ -18,8 +18,8 @@ statistics, as it nicely demonstrates the difference between a frequentist
 maximum likelihood estimate and a Bayesian point estimate. Having seen this
 example before, I had also heard a claim that the Bayesian estimate is "slightly
 better", without having heard a clarification of what "better" means in this
-context. In this post I'm going to analyse the problem, and compare the two
-standard ways of solving it across a number of different metrics.
+context. In this post I'll describe the problem and compare the two approaches
+on simulated data.
 
 ## The problem
 
@@ -181,13 +181,16 @@ $$
 $$
 
 that is, it's the square of the probability we assigned to the true outcome
-_not_ occuring. If we had full confidence that $o = 1$ we would forecast
-$\hat \theta = 1$, in which case the Brier score would be $0$ if we are correct,
-but $1$ if we were wrong! If we were less sure, maybe our forecast is
+_not_ occuring. If we made a forecast $\hat \theta = 1$, the Brier score would
+be $0$ if we are correct and $o = 1$, but $1$ if we were wrong and $o = 0$! If
+the true outcome is not certain, maybe a more conservative forecast would be
 $\hat \theta = 0.7$ in which case we would get a score of $0.3 ^ 2 = 0.09$ if
-$o = 1$ and $0.7^2 = 0.49$ if we are wrong. If we make a sequence
-$\hat \theta_i$ of $N$ forecasts with corresponding outcomes, the Brier score is
-simply an average over all forecasts
+$o = 1$ and $0.7^2 = 0.49$ if $o = 0$. In general, we minimise the expected
+Brier score if $\hat \theta = P(o = 1)$, meaning our forecast is encouraged to
+be well [calibrated][calibration].
+
+If we make a sequence $\hat \theta_i$ of $N$ forecasts with corresponding
+outcomes, the Brier score is simply an average over all forecasts
 
 $$
     \frac{1}{N} \sum_{i=1}^N (\hat \theta_i - o_i)^2
@@ -246,5 +249,8 @@ like estimating the line is right on one of the edges of the table.
 
 [bayes]: https://en.wikipedia.org/wiki/Thomas_Bayes
 [bayes-paper]: https://royalsocietypublishing.org/doi/pdf/10.1098/rstl.1763.0053
+
+<!-- prettier-ignore -->
+[calibration]: https://en.wikipedia.org/wiki/Calibration_(statistics)#In_prediction_and_forecasting
 [spiegel]: http://www.statslab.cam.ac.uk/~david/
 [proper-score]: https://en.wikipedia.org/wiki/Scoring_rule#ProperScoringRules

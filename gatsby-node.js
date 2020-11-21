@@ -14,10 +14,7 @@ exports.createPages = async ({ actions, graphql, getNodes }) => {
 
   const allMarkdown = await graphql(`
     {
-      allMarkdownRemark(
-        sort: { fields: [frontmatter___date], order: ASC }
-        limit: 1000
-      ) {
+      allMdx(sort: { fields: [frontmatter___date], order: ASC }, limit: 1000) {
         edges {
           node {
             frontmatter {
@@ -40,8 +37,10 @@ exports.createPages = async ({ actions, graphql, getNodes }) => {
     }
   `)
 
+  console.log(allMarkdown)
+
   const {
-    allMarkdownRemark: { edges: markdownPages },
+    allMdx: { edges: markdownPages },
     site: { siteMetadata },
   } = allMarkdown.data
 
@@ -113,7 +112,7 @@ exports.createPages = async ({ actions, graphql, getNodes }) => {
 exports.sourceNodes = ({ actions }) => {
   const { createTypes } = actions
   const typeDefs = `
-    type MarkdownRemark implements Node {
+    type Mdx implements Node {
       frontmatter: Frontmatter!
     }
 
@@ -131,7 +130,7 @@ exports.sourceNodes = ({ actions }) => {
 }
 
 exports.onCreateNode = ({ node, getNode, actions }) => {
-  if (node.internal.type === `MarkdownRemark`) {
+  if (node.internal.type === `Mdx`) {
     const { createNodeField } = actions
     const parent = getNode(node.parent)
     createNodeField({
