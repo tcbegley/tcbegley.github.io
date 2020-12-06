@@ -1,7 +1,7 @@
 ---
 title: 'Bayesian billiards'
 path: '/blog/bayesian-billiards'
-date: '2020-11-21 08:00:00'
+date: '2020-12-06 08:00:00'
 author: 'Tom'
 excerpt:
   'In his seminal paper "An Essay towards solving a Problem in the Doctrine of
@@ -9,6 +9,8 @@ excerpt:
   thrown randomly onto a billiards table. '
 tags: ['bayesian statistics', 'interactive']
 ---
+
+import BilliardsContainer from "./components/billiards-container"
 
 In his seminal [paper][bayes-paper] "An Essay towards solving a Problem in the
 Doctrine of Chances", [Thomas Bayes][bayes] introduced a thought experiment
@@ -34,7 +36,7 @@ enjoyable read):
 > Where do you think the line might be, and what should be your probability of
 > the next red ball falling to the left of the line.
 
-**TODO** put a little widget here?
+<BilliardsContainer />
 
 Let's set up some notation so that we can discuss possible solutions. First
 we'll denote the position of the white ball by $\theta$. The exact length of the
