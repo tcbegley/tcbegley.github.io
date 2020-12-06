@@ -2,6 +2,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'gatsby'
 import Img from 'gatsby-image'
+import { MDXRenderer } from 'gatsby-plugin-mdx'
+
 import Navigation from './navigation'
 import { toKebabCase } from '../helpers'
 
@@ -15,7 +17,7 @@ const Post = ({
   author,
   excerpt,
   tags,
-  html,
+  body,
   previousPost,
   nextPost,
 }) => {
@@ -59,7 +61,7 @@ const Post = ({
           </>
         ) : (
           <>
-            <div dangerouslySetInnerHTML={{ __html: html }} />
+            <MDXRenderer>{body}</MDXRenderer>
             <Navigation
               previousPath={previousPath}
               previousLabel={previousLabel}
@@ -80,7 +82,7 @@ Post.propTypes = {
   coverImage: PropTypes.object,
   author: PropTypes.string,
   excerpt: PropTypes.string,
-  html: PropTypes.string,
+  body: PropTypes.any,
   tags: PropTypes.arrayOf(PropTypes.string),
   previousPost: PropTypes.object,
   nextPost: PropTypes.object,

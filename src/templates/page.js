@@ -11,8 +11,8 @@ const BlogPostTemplate = ({ data }) => {
     frontmatter: { title, path, coverImage, excerpt, tags },
     excerpt: autoExcerpt,
     id,
-    html,
-  } = data.markdownRemark
+    body,
+  } = data.mdx
 
   return (
     <Layout>
@@ -22,7 +22,7 @@ const BlogPostTemplate = ({ data }) => {
         title={title}
         path={path}
         coverImage={coverImage}
-        html={html}
+        body={body}
         tags={tags}
       />
     </Layout>
@@ -41,7 +41,7 @@ BlogPostTemplate.propTypes = {
 
 export const pageQuery = graphql`
   query($path: String) {
-    markdownRemark(frontmatter: { path: { eq: $path } }) {
+    mdx(frontmatter: { path: { eq: $path } }) {
       frontmatter {
         title
         date(formatString: "DD MMMM YYYY")
@@ -58,7 +58,7 @@ export const pageQuery = graphql`
         }
       }
       id
-      html
+      body
       excerpt
     }
   }
