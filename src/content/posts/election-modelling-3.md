@@ -225,7 +225,7 @@ $\theta = 1.0$, we obtain a $\mathrm{Beta}(13, 10)$ posterior on $\theta$, which
 has mean $0.565$. The full posterior looks like the below figure.
 
 <p align="center">
-  <img src="../images/blog/em3/low-data-posterior.png" width="350"/>
+  <img src="../../images/blog/em3/low-data-posterior.png" width="350"/>
 </p>
 
 Here we see the regularising effect of the prior. Our knowledge of the situation

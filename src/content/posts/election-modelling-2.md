@@ -118,14 +118,14 @@ flips. To begin with, before we observe any data, the posterior is just the
 prior.
 
 <p align="center">
-  <img src="../images/blog/em2/beta11.png" />
+  <img src="../../images/blog/em2/beta11.png" />
 </p>
 
 If we observed a tails, the posterior becomes $\mathrm{Beta}(1, 2)$ which looks
 like this.
 
 <p align="center">
-  <img src="../images/blog/em2/beta12.png" />
+  <img src="../../images/blog/em2/beta12.png" />
 </p>
 
 We can see the posterior probability density of $\theta = 1$ immediately goes to
@@ -137,7 +137,7 @@ observe two heads, the posterior becomes $\mathrm{Beta}(3, 2)$ which looks like
 this.
 
 <p align="center">
-  <img src="../images/blog/em2/beta32.png" />
+  <img src="../../images/blog/em2/beta32.png" />
 </p>
 
 Now that we've observed a heads, we can similarly rule out the possibility that
@@ -148,7 +148,7 @@ heads, so the proportion of heads is the same, but the amount of data goes up.
 Now the posterior is $\mathrm{Beta}(21, 11)$ which looks like this.
 
 <p align="center">
-  <img src="../images/blog/em2/beta2111.png" />
+  <img src="../../images/blog/em2/beta2111.png" />
 </p>
 
 Now the mode of the posterior distribution is closer to the proportion of heads
@@ -169,7 +169,7 @@ posteriors differ significantly, but as we observe more data they get more and
 more similar as the influence of the prior fades.
 
 <p align="center">
-  <img src="../images/blog/em2/animation.gif" width="900"/>
+  <img src="../../images/blog/em2/animation.gif" width="900"/>
 </p>
 
 ## Inference with the posterior distribution

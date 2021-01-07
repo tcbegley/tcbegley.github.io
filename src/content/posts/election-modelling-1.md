@@ -65,14 +65,14 @@ they want to vote for. We can illustrate that as follows, where colour
 represents political preference.
 
 <p align="center">
-  <img src="../images/blog/em/population.png" />
+  <img src="../../images/blog/em/population.png" />
 </p>
 
 We select a random sample of the population, and ask them what their voting
 preference is.
 
 <p align="center">
-  <img src="../images/blog/em/population-sample.png" />
+  <img src="../../images/blog/em/population-sample.png" />
 </p>
 
 We calculate the proportion of voters in the sample that intend to vote for each
@@ -80,7 +80,7 @@ party, and use that as our estimate of the proportion of voters in the
 electorate that will vote for those parties.
 
 <p align="center">
-  <img src="../images/blog/em/sample.png" />
+  <img src="../../images/blog/em/sample.png" />
 </p>
 
 We know from the [Central Limit Theorem][clt] that the more people you sample,
@@ -102,7 +102,7 @@ distributed across the electorate. Currently in the UK support for parties is
 strongly correlated with age. Perhaps that looks something like this
 
 <p align="center">
-  <img src="../images/blog/em/population-skew.png" />
+  <img src="../../images/blog/em/population-skew.png" />
 </p>
 
 If the poll is more likely to reach older people, for example if we do a
@@ -110,13 +110,13 @@ telephone poll and older people are more likely to have a landline, then our
 sample could be biased.
 
 <p align="center">
-  <img src="../images/blog/em/population-skew-sample.png" />
+  <img src="../../images/blog/em/population-skew-sample.png" />
 </p>
 
 Which would lead to biased estimates.
 
 <p align="center">
-  <img src="../images/blog/em/sample-skew.png" />
+  <img src="../../images/blog/em/sample-skew.png" />
 </p>
 
 ## Errors are not the only problem
