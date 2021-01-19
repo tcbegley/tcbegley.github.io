@@ -1,7 +1,7 @@
 ---
 title: 'Implementing MCMC - the Metropolis algorithm'
 path: '/blog/mcmc-part-1'
-date: '2021-01-11 08:00:00'
+date: '2021-01-19 08:00:00'
 author: 'Tom'
 excerpt:
   "I'm a big fan of probabilistic modelling and Bayesian inference. In fact at
@@ -274,9 +274,9 @@ $$
 $$
 
 where $\sigma$ is a tunable parameter. That is to say, at each step the proposal
-is simply the current sample with some Gaussian noise applied. This is very easy
-to implement, and is known as Random Walk Metropolis, as the proposal
-distribution is defining a random walk in parameter space.
+is simply the current sample with some normally distributed noise applied. This
+is very easy to implement, and is known as Random Walk Metropolis, as the
+proposal distribution is defining a random walk in parameter space.
 
 Below is a simple implementation of the metropolis algorithm. It expects an
 unnormalised density `target` corresponding to the target distribution, a
@@ -323,8 +323,8 @@ class NormalProposal:
         return sample + jump
 ```
 
-Instantiating `NormalProposal` produces a callable object that adds Gaussian
-noise with the specified scale to the argument.
+Instantiating `NormalProposal` produces a callable object that adds normally
+distributed noise with the specified scale to the argument.
 
 We also need a target distribution to sample from. Let's start simple and use a
 multivariate normal distribution. Again, this can be quite neatly implemented as
