@@ -169,7 +169,9 @@ posteriors differ significantly, but as we observe more data they get more and
 more similar as the influence of the prior fades.
 
 <p align="center">
-  <img src="../../images/blog/em2/animation.gif" width="900"/>
+  <div class="gif-container">
+    <img src="../../images/blog/em2/animation.gif" width="900"/>
+  </div>
 </p>
 
 ## Inference with the posterior distribution
