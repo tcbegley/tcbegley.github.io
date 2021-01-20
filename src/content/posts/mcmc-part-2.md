@@ -51,8 +51,8 @@ produced because they can be run so quickly.
 The Random Walk Metropolis algorithm falls into the latter category here.
 Sampling from a normal distribution to generate the proposal is fast, but it
 turns out will lead to correlated samples. The following example illustrates why
-this is the case. Consider the following (unnormalised) probability density,
-that is concentrated in an annular region.
+this is the case. Consider this (unnormalised) probability density, that is
+concentrated in an annular region.
 
 ```python
 import numpy as np
@@ -123,8 +123,8 @@ Using both small and large jumps to generate proposals results in highly
 correlated samples. In the former case, each proposal is not very different from
 the previous sample so progress through parameter space is slow. In the latter
 case, there is a high probability the jump lands us outside the annular region
-where the probability density is not vanishingly small, which means there is a
-high probability that sample is rejected. When a sample is rejected the previous
+where the probability density is vanishingly small, which means there is a high
+probability that sample is rejected. When a sample is rejected the previous
 sample is repeated, which results in high correlation in the samples, and hence
 small $N_{eff}$.
 
@@ -295,9 +295,9 @@ to update $q$, then taking another half step with $p$ using the updated $q$. In
 other words
 
 $$
-    \tilde p = p_n - \varepsilon \frac{\partial H}{\partial q}(q_n, p_n) \\
+    \tilde p = p_n - \frac{\varepsilon}{2} \frac{\partial H}{\partial q}(q_n, p_n) \\
     q_{n+1} = q_n + \varepsilon \frac{\partial H}{\partial p}(q_n, \tilde p) \\
-    p_{n+1} = \tilde p - \varepsilon \frac{\partial H}{\partial q}(q_{n+1}, \tilde p)
+    p_{n+1} = \tilde p - \frac{\varepsilon}{2} \frac{\partial H}{\partial q}(q_{n+1}, \tilde p)
 $$
 
 We can test this with an extremely simple Hamiltonian
@@ -307,10 +307,11 @@ $$
 $$
 
 The figure below compares the leapfrog approximator to Euler's method and a
-modified Euler's method (see addendum for details). The analytic solution is
-shown in grey. We see that Euler's method diverges completely, while the
-modified Euler doesn't diverge, but does deviate from the analytic solution at
-times, while the leapfrog integrator is very faithful to the analytic solution.
+modified Euler's method (see the appendix at the end of this post for details).
+The analytic solution is shown in grey. We see that Euler's method diverges
+completely, while the modified Euler doesn't diverge, but does deviate from the
+analytic solution at times, while the leapfrog integrator is very faithful to
+the analytic solution.
 
 <p align="center">
   <div class="gif-container">
@@ -366,14 +367,14 @@ def hmc(target, initial, iterations=10_000, L=50, step_size=0.1):
         q0 = samples[-1]
         p0 = np.random.standard_normal(size=q0.size)
 
-        q_star, p_star = leapfrog(q0, p0, target, L, step_size)
+        qL, pL = leapfrog(q0, p0, target, L, step_size)
 
         h0 = -target.log_density(q0) + (p0 * p0).sum() / 2
-        h = -target.log_density(q_star) + (p_star * p_star).sum() / 2
+        h = -target.log_density(qL) + (pL * pL).sum() / 2
         log_accept_ratio = h0 - h
 
         if np.random.random() < np.exp(log_accept_ratio):
-            samples.append(q_star)
+            samples.append(qL)
         else:
             samples.append(q0)
 
@@ -484,6 +485,9 @@ choices, and a bad choice can destroy the utility of the sampler. In the next
 post we will look at the No U-Turn Sampler (NUTS), a modification of Hamiltonian
 Monte Carlo that is able to choose appropriate $\varepsilon$ and $L$
 automatically, making it much easier to apply in practice.
+
+Full code for all of the plots and animations in this post is available
+[here](https://gist.github.com/tcbegley/a209773e77ae90e25ba570aab88afad5).
 
 ## Appendix
 
