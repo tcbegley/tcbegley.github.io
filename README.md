@@ -28,7 +28,7 @@ Serve the production bundle
 npm run serve
 ```
 
-Updates are automatically published when new commits are pushed to `master`. Manually publish to GitHub pages with
+Updates are automatically published when new commits are pushed to `main`. Manually publish to GitHub pages with
 
 ```sh
 npm run deploy
