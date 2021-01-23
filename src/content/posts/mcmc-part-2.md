@@ -274,20 +274,17 @@ $q^{(i+1)} = q_T$, otherwise we stay where we are and set $q^{(i+1)} = q^{(i)}$.
 So how do we obtain $q_T$? We need to numerically solve the system. Many
 numerical solvers suffer from errors that compound over time, meaning that our
 estimate of $q_T$ gets worse as $T$ gets large. Fortunately, we can exploit the
-structure of the Hamiltonian system. The Hamiltonian itself is constant along
-flow lines, which we can easily verify by differentiating with respect to time
-and substituting Hamilton's equations
+structure of the Hamiltonian system. Hamiltonian dynamics preserve phase space
+volume, which can be seen for example by observing that the vector field induced
+by Hamilton's equations has zero divergence.
 
-$$
-    \frac{d}{d t}H(q, p) = \frac{\partial H}{\partial q}\frac{d q}{d t} + \frac{\partial H}{\partial p}\frac{d p}{d t} = 0
-$$
-
-In other words, the flow is along level sets of the Hamiltonian. A certain class
-of numerical approximation schemes, known as _symplectic integrators_ preserve
-the value of the Hamiltonian along the approximate solution, which limits the
-extent to which errors can accumulate. In particular errors do not compound,
-which allows us to flow for longer without the error becoming unacceptably
-large.
+A certain class of numerical approximation schemes - known as _symplectic
+integrators_ - exactly preserve phase space volume, despite being discretised
+approximations. This limits the extent to which errors can accumulate, because
+for example diverging to infinity or spiraling to zero would typically require
+that the volume expands or contracts respectively. In particular, unlike naive
+schemes, errors do not compound, which allows us to approximate longer
+trajectories without the error becoming unacceptably large.
 
 A simple and often used symplectic integrator is the so called leapfrog
 integrator. This sees us make a half step with $p$, using the half-updated $p$
@@ -309,15 +306,21 @@ $$
 The figure below compares the leapfrog approximator to Euler's method and a
 modified Euler's method (see the appendix at the end of this post for details).
 The analytic solution is shown in grey. We see that Euler's method diverges
-completely, while the modified Euler doesn't diverge, but does deviate from the
-analytic solution at times, while the leapfrog integrator is very faithful to
-the analytic solution.
+completely. The modified Euler doesn't diverge as it is volume preserving, but
+does deviate from the analytic solution at times more than the leapfrog
+integrator, while the leapfrog integrator's trajectory is very difficult to
+distinguish from the analytic solution.
 
 <p align="center">
   <div class="gif-container">
     <img src="../../images/blog/mcmc2/integrator.gif" />
   </div>
 </p>
+
+The reason the leapfrog integrator performs better than the modified Euler
+method is because in addition to being volume preserving it is also
+_reversible_, which implies better asymptotics for the global error rate in
+terms of step size.
 
 ## Implementing Hamiltonian Monte Carlo
 
@@ -510,6 +513,8 @@ $$
     p_{n+1} = p_n - \varepsilon \frac{\partial H}{\partial q}(\mathbf{q_{n+1}}, p_n)
 $$
 
-This is more stable, but still prone to errors. The leapfrog integrator takes
-this one step further and partially updates $p$, uses the partial update to
-update $q$, then completes the update of $p$ with the updated $q$.
+This method is volume preserving, which results in much better guarantees on the
+error rate. The leapfrog integrator takes this one step further and partially
+updates $p$, uses the partial update to update $q$, then completes the update of
+$p$ with the updated $q$. This modification adds a symmetry which ensures
+reversibility and further improves the error bounds.
