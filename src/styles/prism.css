@@ -36,9 +36,15 @@ pre[class*='language-'] {
   overflow: auto;
 }
 
-:not(pre) > code[class*='language-'],
+:not(pre) > code[class*='language-'] {
+  background: #eeeeee;
+  color: #1d1d1d;
+}
+
+.dark-theme :not(pre) > code[class*='language-'],
 pre[class*='language-'] {
   background: #2d2d2d;
+  color: #ccc;
 }
 
 /* Inline code */
