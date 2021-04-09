@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const postCssPresetEnv = require(`postcss-preset-env`)
 const postCSSNested = require('postcss-nested')
 const postCSSUrl = require('postcss-url')
@@ -70,7 +72,7 @@ module.exports = {
     {
       resolve: 'gatsby-source-flickr',
       options: {
-        api_key: '35d4051df48123ae80c8a01a505c875d',
+        api_key: process.env.FLICKR_API_KEY,
         method: 'flickr.photosets.getPhotos',
         photoset_id: '72157708283484644',
         user_id: '149210668@N06',
@@ -154,6 +156,7 @@ module.exports = {
         background_color: `#292a2d`,
         theme_color: `#292a2d`,
         display: `minimal-ui`,
+        icon: `src/images/hello-icon.png`,
       },
     },
   ],
