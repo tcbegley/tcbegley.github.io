@@ -42,8 +42,8 @@
     "prop-types": "^15.6.2",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-grid-gallery": "^0.5.5",
     "react-helmet": "^5.2.0",
-    "react-responsive-carousel": "^3.2.10",
     "react-typist": "^2.0.5"
   },
   "devDependencies": {
