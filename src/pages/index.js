@@ -66,7 +66,7 @@ const Index = ({ data }) => (
 
 export const query = graphql`
   query MyQuery {
-    file(relativePath: { eq: "me.jpg" }) {
+    file(relativePath: { eq: "tom-in-thailand-crop.jpg" }) {
       childImageSharp {
         id
         fixed(width: 400) {

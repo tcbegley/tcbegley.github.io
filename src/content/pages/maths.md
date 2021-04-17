@@ -13,12 +13,12 @@ papers and my thesis below after the descriptions of what I worked on.
 ### For the mathematicians
 
 My work was focussed on geometric variational problems, formulated in the
-languages of geometric measure theory and PDE. In particular I was interested in
-those problems arising from the study of the area functional of submanifolds of
-Euclidean space or, more generally, a Riemannian manifold. I worked on problems
-relating to mean curvature flow (which is like the gradient descent for area),
-where I was mostly interested in the process of singularity formation and the
-existence and regularity of weak solutions. I was also interested in the
+languages of geometric measure theory and PDEs. In particular I was interested
+in those problems arising from the study of the area functional of submanifolds
+of Euclidean space or, more generally, a Riemannian manifold. I worked on
+problems relating to mean curvature flow (which is like the gradient descent for
+area), where I was mostly interested in the process of singularity formation and
+the existence and regularity of weak solutions. I was also interested in the
 regularity of stationary varifolds (these are measure theoretic notions of
 minimal submanifolds, and so are critical for area), and in particular worked on
 trying to understand boundary behaviour, and regularity up to the boundary.

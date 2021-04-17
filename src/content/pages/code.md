@@ -15,3 +15,7 @@ on recently include:
   app using Redis and RQ to manage long-running background tasks.
 - [_cube-solver_](https://github.com/tcbegley/cube-solver) - A Python
   implementation of Kociemba's two-phase algorithm for solving the Rubik's Cube.
+- [_advent-of-code_](https://github.com/tcbegley/advent-of-code) - My solutions
+  to various advent of code problems (work in progress!)
+- [_tqdm-countdown_](https://github.com/tcbegley/tqdm-countdown) - `tqdm` style
+  progress bars... but more exciting!
