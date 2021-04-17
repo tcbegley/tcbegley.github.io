@@ -19,7 +19,7 @@ include:
 
 Previously I studied for a PhD in mathematics at the University of Cambridge
 under the joint supervision of [Prof. Neshan Wickramasekera][neshan-homepage]
-and [Dr. Felix Schulze][felix-homepage]. You can read more about what I worked
+and [Prof. Felix Schulze][felix-homepage]. You can read more about what I worked
 on on my [maths page](/maths).
 
 I like coding in my spare time and contributing to open source projects. You can
