@@ -99,7 +99,7 @@ particular special case of this, but there are many variants. There are two big
 drawbacks to these deterministic approaches that mean we will ultimately be
 uninterested in using them for inference:
 
-1. If we were to use a naïve strategy for chosing grid points, then the number
+1. If we were to use a naïve strategy for choosing grid points, then the number
    of points required to reach some acceptable level of error increases
    exponentially with the dimension of the space we are integrating over. For
    example, if we were using a uniform grid, then in one dimension we might
